@@ -15,9 +15,9 @@ module.exports = {
 
   // MongoDB connection options
   mongo: {
-    uri:    process.env.MONGOLAB_URI ||
+    uri:    process.env.MONGODB_URI ||
             process.env.MONGOHQ_URL ||
             process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
-            'mongodb://dburlins:tittysprinkles@ds033066.mlab.com:33066/heroku_cnzcqzsr'
-    }
+            'mongodb://localhost/bridgesdata'
+  }
 };
