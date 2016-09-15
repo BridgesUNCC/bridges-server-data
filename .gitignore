@@ -1,8 +1,4 @@
 node_modules
-.tmp
-.sass-cache
-app/bower_components
-/node_modules
+.idea
+/server/config/local.env.js
 npm-debug.log
-.DS_Store
-/*.env

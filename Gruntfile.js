@@ -1,286 +1,329 @@
+// Generated on 2016-09-15 using generator-node-express-mongo 2.1.7
 'use strict';
 
 module.exports = function (grunt) {
-    // show elapsed time at the end
-    require('time-grunt')(grunt);
-    // load all grunt tasks
-    require('load-grunt-tasks')(grunt);
+  var localConfig;
+  try {
+    localConfig = require('./server/config/local.env');
+  } catch(e) {
+    localConfig = {};
+  }
 
-    grunt.initConfig({
+  // Load grunt tasks automatically, when needed
+  require('jit-grunt')(grunt, {
+    express: 'grunt-express-server',
+    protractor: 'grunt-protractor-runner',
+    buildcontrol: 'grunt-build-control'
+  });
 
-        // Watch Config
-        watch: {
-            files: ['views/**/*'],
-            options: {
-                livereload: true
-            },
-            scripts: {
-                files: [
-                    'assets/scripts/**/*.js',
-                ],
-            },
-            css: {
-                files: [
-                    'assets/styles/**/*.css',
-                ],
-            },
-            sass: {
-                files: ['assets/styles/**/*.scss'],
-                tasks: ['sass:dev']
-            },
-            images: {
-                files: [
-                    'assets/images/**/*.{png,jpg,jpeg,webp}'
-                ],
-            },
-            express: {
-                files:  [ 'app.js', '!**/node_modules/**', '!Gruntfile.js' ],
-                tasks:  [ 'express:dev' ],
-                options: {
-                    nospawn: true // Without this option specified express won't be reloaded
-                }
-            },
+  // Time how long tasks take. Can help when optimizing build times
+  require('time-grunt')(grunt);
+
+  // Define the configuration for all the tasks
+  grunt.initConfig({
+
+    // Project settings
+    pkg: grunt.file.readJSON('package.json'),
+    yeoman: {
+      // configurable paths
+      dist: 'dist'
+    },
+    express: {
+      options: {
+        port: process.env.PORT || 3001
+      },
+      dev: {
+        options: {
+          script: 'server/app.js',
+          debug: true
+        }
+      },
+      prod: {
+        options: {
+          script: 'server/app.js'
+        }
+      }
+    },
+    open: {
+      server: {
+        url: 'http://localhost:<%= express.options.port %>'
+      }
+    },
+    watch: {
+      mochaTest: {
+        files: ['server/**/*.spec.js'],
+        tasks: ['env:test', 'mochaTest']
+      },
+      jsTest: {
+        files: [],
+        tasks: ['newer:jshint:all', 'karma']
+      },
+      gruntfile: {
+        files: ['Gruntfile.js']
+      },
+      livereload: {
+        files: [
+          '*'
+        ],
+        options: {
+          livereload: true
+        }
+      },
+      express: {
+        files: [
+          'server/**/*.{js,json}'
+        ],
+        tasks: ['express:dev', 'wait'],
+        options: {
+          livereload: true,
+          nospawn: true //Without this option specified express won't be reloaded
+        }
+      }
+    },
+
+    // Make sure code styles are up to par and there are no obvious mistakes
+    jshint: {
+      options: {
+        reporter: require('jshint-stylish')
+      },
+      server: {
+        options: {
+          jshintrc: 'server/.jshintrc'
         },
-
-        // Clean Config
-        clean: {
-            dist: {
-                files: [{
-                    dot: true,
-                    src: [
-                        '.tmp',
-                        'dist/*',
-                        '!dist/.git*'
-                    ]
-                }]
-            },
-            server: ['.tmp'],
+        src: [
+          'server/**/*.js',
+          '!server/**/*.spec.js'
+        ]
+      },
+      serverTest: {
+        options: {
+          jshintrc: 'server/.jshintrc-spec'
         },
+        src: ['server/**/*.spec.js']
+      },
+      all: [],
+      test: {
+        src: []
+      }
+    },
 
-        // Hint Config
-        jshint: {
-            options: {
-                jshintrc: '.jshintrc'
-            },
-            all: [
-                'Gruntfile.js',
-                'assets/scripts/**/*.js',
-                '!assets/scripts/vendor/*',
-                'test/spec/**/*.js'
-            ]
-        },
+    // Empties folders to start fresh
+    clean: {
+      dist: {
+        files: [{
+          dot: true,
+          src: [
+            '.tmp',
+            '<%= yeoman.dist %>/*',
+            '!<%= yeoman.dist %>/.git*',
+            '!<%= yeoman.dist %>/.openshift',
+            '!<%= yeoman.dist %>/Procfile'
+          ]
+        }]
+      },
+      server: '.tmp'
+    },
 
-        // Sass Config
-        sass: {
-            options: {
-                cacheLocation: '.tmp/.sass-cache'
-            },
-            dev: {
-                options: {
-                    style: 'expanded',
-                    lineComments: true
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'assets/styles/sass',
-                    dest: 'assets/styles',
-                    src: ['screen.scss'],
-                    ext: '.css'
-                }]
-            }
-        },
+    // Debugging with node inspector
+    'node-inspector': {
+      custom: {
+        options: {
+          'web-host': 'localhost'
+        }
+      }
+    },
 
-        // Express Config
-        express: {
-            options: {
-              // Override defaults here
-            },
-            dev: {
-                options: {
-                    script: 'app.js'
-                }
-            }
-        },
+    // Use nodemon to run server in debug mode with an initial breakpoint
+    nodemon: {
+      debug: {
+        script: 'server/app.js',
+        options: {
+          nodeArgs: ['--debug-brk'],
+          env: {
+            PORT: process.env.PORT || 3001
+          },
+          callback: function (nodemon) {
+            nodemon.on('log', function (event) {
+              console.log(event.colour);
+            });
 
-        // Open Config
-        open: {
-            site: {
-                path: 'http://localhost:3000',
-                app: 'Google Chrome'
-            },
-            editor: {
-                path: './',
-            },
-        },
+            // opens browser on initial server start
+            nodemon.on('config:update', function () {
+              setTimeout(function () {
+                require('open')('http://localhost:8080/debug?port=5858');
+              }, 500);
+            });
+          }
+        }
+      }
+    },
 
-        // Rev Config
-        rev: {
-            dist: {
-                files: {
-                    src: [
-                        'dist/assets/scripts/**/*.js',
-                        'dist/assets/styles/**/*.css',
-                        'dist/assets/images/**/*.{png,jpg,jpeg,gif,webp}',
-                        'dist/assets/styles/fonts/**/*.*'
-                    ]
-                }
-            }
-        },
+    buildcontrol: {
+      options: {
+        dir: 'dist',
+        commit: true,
+        push: true,
+        connectCommits: false,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+      },
+      heroku: {
+        options: {
+          remote: 'heroku',
+          branch: 'master'
+        }
+      },
+      openshift: {
+        options: {
+          remote: 'openshift',
+          branch: 'master'
+        }
+      }
+    },
 
-        // Usemin Config
-        useminPrepare: {
-            options: {
-                dest: 'dist/assets'
-            },
-            html: ['assets/{,*/}*.html', 'views/**/*.handlebars']
-        },
-        usemin: {
-            options: {
-                dirs: ['dist/assets'],
-                basedir: 'dist/assets',
-            },
-            html: ['dist/assets/{,*/}*.html', 'dist/views/**/*.handlebars'],
-            css: ['dist/assets/styles/{,*/}*.css']
-        },
+    // Run some tasks in parallel to speed up the build process
+    concurrent: {
+      debug: {
+        tasks: [
+          'nodemon',
+          'node-inspector'
+        ],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
+    },
 
-        // Imagemin Config
-        imagemin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'assets/images',
-                    src: '**/*.{png,jpg,jpeg}',
-                    dest: 'dist/assets/images'
-                }]
-            }
-        },
+    // Test settings
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        singleRun: true
+      }
+    },
 
-        // SVGmin Config
-        svgmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'assets/images',
-                    src: '{,*/}*.svg',
-                    dest: 'dist/assets/images'
-                }]
-            }
-        },
+    mochaTest: {
+      options: {
+        reporter: 'spec'
+      },
+      src: ['server/**/*.spec.js']
+    },
 
-        // CSSmin config
-        cssmin: {
-            // This task is pre-configured if you do not wish to use Usemin
-            // blocks for your CSS. By default, the Usemin block from your
-            // `index.html` will take care of minification, e.g.
-            //
-            //     <!-- build:css({.tmp,app}) styles/main.css -->
-            //
-            // dist: {
-            //     files: {
-            //         'dist/assets/styles/main.css': [
-            //             '.tmp/styles/{,*/}*.css',
-            //             'assets/styles/{,*/}*.css'
-            //         ]
-            //     }
-            // }
-        },
+    protractor: {
+      options: {
+        configFile: 'protractor.conf.js'
+      },
+      chrome: {
+        options: {
+          args: {
+            browser: 'chrome'
+          }
+        }
+      }
+    },
 
-        // HTML Config
-        htmlmin: {
-            dist: {
-                options: {
-                    /*removeCommentsFromCDATA: true,
-                    // https://github.com/yeoman/grunt-usemin/issues/44
-                    //collapseWhitespace: true,
-                    collapseBooleanAttributes: true,
-                    removeAttributeQuotes: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true,
-                    removeEmptyAttributes: true,
-                    removeOptionalTags: true*/
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'assets',
-                    src: '*.html',
-                    dest: 'dist/assets'
-                }]
-            }
-        },
+    env: {
+      test: {
+        NODE_ENV: 'test'
+      },
+      prod: {
+        NODE_ENV: 'production'
+      },
+      all: localConfig
+    }
+  });
 
-        // Copy Config
-        // Put files not handled in other tasks here
-        copy: {
-            dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: 'assets',
-                    dest: 'dist/assets',
-                    src: [
-                        '*.{ico,png,txt}',
-                        '.htaccess',
-                        'images/**/*.{webp,gif}',
-                        'styles/fonts/{,*/}*.*',
-                    ]
-                }, {
-                    expand: true,
-                    dot: true,
-                    cwd: 'views',
-                    dest: 'dist/views/',
-                    src: '**/*.handlebars',
-                }]
-            },
-            styles: {
-                expand: true,
-                dot: true,
-                cwd: 'assets/styles',
-                dest: '.tmp/styles/',
-                src: '{,*/}*.css'
-            },
-        },
+  // Used for delaying livereload until after server has restarted
+  grunt.registerTask('wait', function () {
+    grunt.log.ok('Waiting for server reload...');
 
-        // Concurrent Config
-        concurrent: {
-            dist: [
-                'copy:styles',
-                'svgmin',
-                'htmlmin'
-            ]
-        },
-    });
+    var done = this.async();
 
-    // Register Tasks
-    // Workon
-    grunt.registerTask('workon', 'Start working on this project.', [
-        'jshint',
-        'sass:dev',
+    setTimeout(function () {
+      grunt.log.writeln('Done waiting!');
+      done();
+    }, 1500);
+  });
+
+  grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
+    this.async();
+  });
+
+  grunt.registerTask('serve', function (target) {
+    if (target === 'dist') {
+      return grunt.task.run([
+        'clean:server',
+        'env:all',
+        'env:prod',
+        'express:prod',
+        'wait',
+        'open',
+        'express-keepalive'
+        ]);
+    }
+
+    if (target === 'debug') {
+      return grunt.task.run([
+        'clean:server',
+        'env:all',
+        'concurrent:debug'
+      ]);
+    }
+
+    grunt.task.run([
+      'clean:server',
+      'env:all',
+      'express:dev',
+      'wait',
+      'open',
+      'watch'
+    ]);
+  });
+
+  grunt.registerTask('server', function () {
+    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+    grunt.task.run(['serve']);
+  });
+
+  grunt.registerTask('test', function(target) {
+    if (target === 'server') {
+      return grunt.task.run([
+        'env:all',
+        'env:test',
+        'mochaTest'
+      ]);
+    }
+
+    else if (target === 'client') {
+      return grunt.task.run([
+        'clean:server',
+        'env:all',
+        'karma'
+      ]);
+    }
+
+    else if (target === 'e2e') {
+      return grunt.task.run([
+        'clean:server',
+        'env:all',
+        'env:test',
         'express:dev',
-        'open:site',
-        'open:editor',
-        'watch'
+        'protractor'
+      ]);
+    }
+
+    else grunt.task.run([
+      'test:server',
+      'test:client'
     ]);
+  });
 
+  grunt.registerTask('build', [
+    'clean:dist'
+  ]);
 
-    // Restart
-    grunt.registerTask('restart', 'Restart the server.', [
-        'express:dev',
-        'watch'
-    ]);
-    
-
-    // Build
-    grunt.registerTask('build', 'Build production ready assets and views.', [
-        'clean:dist',
-        'concurrent:dist',
-        'useminPrepare',
-        'imagemin',
-        'concat',
-        'cssmin',
-        'uglify',
-        'copy:dist',
-        'rev',
-        'usemin',
-    ]);
-
+  grunt.registerTask('default', [
+    'newer:jshint',
+    'test',
+    'build'
+  ]);
 };
