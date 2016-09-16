@@ -9,14 +9,12 @@ var path = require('path');
 module.exports = function(app) {
 
   // Insert routes below
-  app.use('/api/things', require('./api/thing'));
-  app.use('/api/users', require('./api/user'));
-
+  app.use('/api/tests', require('./api/test'));
 
   app.use('/auth', require('./auth'));
 
   app.use('/', function(req, res) {
-    res.json({ok:200});
+    res.status(200).json({'ello':'there'});
   });
 
 

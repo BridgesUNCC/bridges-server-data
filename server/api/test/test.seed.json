@@ -1,0 +1,17 @@
+[
+	{
+	    "attr1" : "Some value",
+			"attr2" : 100,
+			"attr3" : true
+	},
+	{
+	    "attr1" : "Another value",
+			"attr2" : 333,
+			"attr3" : false
+	},
+	{
+	    "attr1" : "!!!!",
+			"attr2" : 789,
+			"attr3" : true
+	}
+]
