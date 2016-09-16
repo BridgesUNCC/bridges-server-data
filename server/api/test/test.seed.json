@@ -2,16 +2,28 @@
 	{
 	    "attr1" : "Some value",
 			"attr2" : 100,
-			"attr3" : true
+			"attr3" : true,
+			"attr4" : {
+				"attr5": "Nested value",
+				"attr6": 1
+			}
 	},
 	{
 	    "attr1" : "Another value",
 			"attr2" : 333,
-			"attr3" : false
+			"attr3" : false,
+			"attr4" : {
+				"attr5": "Another nested value",
+				"attr6": 11
+			}
 	},
 	{
 	    "attr1" : "!!!!",
 			"attr2" : 789,
-			"attr3" : true
+			"attr3" : true,
+			"attr4" : {
+				"attr5": "!!!! nested value",
+				"attr6": 111
+			}
 	}
 ]
