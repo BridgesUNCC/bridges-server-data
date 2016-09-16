@@ -55,8 +55,11 @@ module.exports = function (grunt) {
         tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
-        files: [],
-        tasks: ['newer:jshint:all', 'karma']
+        files: ['Gruntfile.js','server/**/*.js' ],
+        tasks: ['newer:jshint:server'],
+        options: {
+          nospawn: true,
+        }
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -193,14 +196,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Test settings
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
-      }
-    },
-
     mochaTest: {
       options: {
         reporter: 'spec'
@@ -243,6 +238,9 @@ module.exports = function (grunt) {
       done();
     }, 1500);
   });
+
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-newer');
 
   grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
     this.async();
@@ -296,8 +294,7 @@ module.exports = function (grunt) {
     else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
-        'env:all',
-        'karma'
+        'env:all'
       ]);
     }
 
@@ -322,8 +319,9 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
+    'jshint',
     'test',
     'build'
   ]);
+
 };

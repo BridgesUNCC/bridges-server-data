@@ -13,4 +13,5 @@ var testSeed = require('../api/test/test.seed.json');
 // Insert seed inserts below
 Test.find({}).remove(function() {
   Test.create(testSeed);
+  console.log("SEEEED");
 });

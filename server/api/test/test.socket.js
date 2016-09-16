@@ -4,21 +4,21 @@
 
 'use strict';
 
-var test = require('./test.model');
+// var test = require('./test.model');
 
-exports.register = function(socket) {
-  test.schema.post('save', function (doc) {
-    onSave(socket, doc);
-  });
-  test.schema.post('remove', function (doc) {
-    onRemove(socket, doc);
-  });
-};
+// exports.register = function(socket) {
+//   test.schema.post('save', function (doc) {
+//     onSave(socket, doc);
+//   });
+//   test.schema.post('remove', function (doc) {
+//     onRemove(socket, doc);
+//   });
+// };
 
-function onSave(socket, doc, cb) {
-  socket.emit('test:save', doc);
-}
-
-function onRemove(socket, doc, cb) {
-  socket.emit('test:remove', doc);
-}
+// function onSave(socket, doc, cb) {
+//   socket.emit('test:save', doc);
+// }
+//
+// function onRemove(socket, doc, cb) {
+//   socket.emit('test:remove', doc);
+// }

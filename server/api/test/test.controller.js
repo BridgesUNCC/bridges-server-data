@@ -5,8 +5,11 @@
 
 'use strict';
 
-var _ = require('lodash');
 var Test = require('./test.model');
+
+function handleError(res, err) {
+  return res.status(500).send(err);
+}
 
 // Get list of test data
 exports.index = function(req, res) {
@@ -15,7 +18,3 @@ exports.index = function(req, res) {
     return res.status(200).json(tests);
   });
 };
-
-function handleError(res, err) {
-  return res.status(500).send(err);
-}
