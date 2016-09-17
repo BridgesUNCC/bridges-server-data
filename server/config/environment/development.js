@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/bridgesdata-dev'
   },
 
-  seedDB: false
+  seedDB: true
 };
