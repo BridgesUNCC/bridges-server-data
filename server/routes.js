@@ -15,7 +15,7 @@ module.exports = function(app) {
   app.use('/auth', require('./auth'));
 
   app.use('/', function(req, res) {
-    res.status(200).json({'hello':'there'});
+    res.status(200).json({'hello':'there!'});
   });
 
 
