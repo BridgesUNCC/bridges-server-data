@@ -10,7 +10,7 @@ var Game = require('../api/game/game.model');
 
 // // Insert seed data below
 var testSeed = require('../api/test/test.seed.json');
-var gameSeed = require('../api/game/game.seed.json');
+// var gameSeed = require('../api/game/game.seed.json');
 
 // Insert seed inserts below
 Test.find({}).remove(function() {
@@ -18,6 +18,6 @@ Test.find({}).remove(function() {
 });
 
 // Insert all games (17534 records)
-Game.find({}).remove(function() {
-  Game.create(gameSeed);
-});
+// Game.find({}).remove(function() {
+//   Game.create(gameSeed);
+// });
