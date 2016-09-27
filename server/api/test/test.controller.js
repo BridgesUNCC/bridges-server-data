@@ -13,9 +13,7 @@ function handleError(res, err) {
 
 // Get list of test data
 exports.index = function(req, res) {
-  console.log('querying...');
   Test.find(function (err, tests) {
-    console.log('queried!');
     if(err) { return handleError(res, err); }
     return res.status(200).json(tests);
   });
