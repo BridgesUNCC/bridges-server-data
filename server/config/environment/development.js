@@ -1,5 +1,5 @@
 'use strict';
-var MONGO_CREDENTIALS = require('../local.env.js').MONGO_CREDENTIALS || process.env.MONGO_CREDENTIALS;
+var MONGO_CREDENTIALS = process.env.MONGO_CREDENTIALS || require('../local.env.js').MONGO_CREDENTIALS;
 // Development specific configuration
 // ==================================
 module.exports = {
