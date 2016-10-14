@@ -54,13 +54,13 @@ module.exports = function (grunt) {
         files: ['server/**/*.spec.js'],
         tasks: ['env:test', 'mochaTest']
       },
-      jsTest: {
-        files: ['Gruntfile.js','server/**/*.js' ],
-        tasks: ['newer:jshint:server'],
-        options: {
-          nospawn: true,
-        }
-      },
+      // jsTest: {
+      //   files: ['Gruntfile.js','server/**/*.js' ],
+      //   tasks: ['newer:jshint:server'],
+      //   options: {
+      //     nospawn: true,
+      //   }
+      // },
       gruntfile: {
         files: ['Gruntfile.js']
       },
