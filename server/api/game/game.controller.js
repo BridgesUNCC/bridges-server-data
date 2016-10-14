@@ -5,7 +5,9 @@
 
 'use strict';
 
-var Game = require('./game.model');
+var GameModel = require('./game.model');
+var Game = GameModel.model;
+var structure = GameModel.structure;
 
 function handleError(res, err) {
   return res.status(500).send(err);
@@ -15,6 +17,9 @@ function handleError(res, err) {
 exports.index = function(req, res) {
   Game.find(function (err, games) {
     if(err) { return handleError(res, err); }
-    return res.status(200).json(games);
+    return res.status(200).json({
+      'structure': structure,
+      'data': games
+    });
   });
 };
