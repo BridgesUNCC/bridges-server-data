@@ -19,5 +19,6 @@ Test.find({}).remove(function() {
 
 // Insert all games (17534 records)
 Game.find({}).remove(function() {
+  console.log('seeding games');
   Game.create(gameSeed);
 });
