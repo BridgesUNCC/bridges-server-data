@@ -15,8 +15,25 @@ function handleError(res, err) {
 
 // Get list of game data
 exports.index = function(req, res) {
-  Game.find(function (err, games) {
+  var limit = (req.query.limit &&
+                +req.query.limit > 0 &&
+                +req.query.limit <= 17534) ?
+        req.query.limit // use valid limit
+        : 17534;        // use actual number
+
+  // Query for <limit> games
+  Game.find({},{
+    '_id': 0,
+    'game': 1,
+    'rating': 1,
+    'platform': 1,
+    'genre': 1
+  })
+  .limit(limit)
+  .exec(function (err, games) {
     if(err) { return handleError(res, err); }
+
+    // return the structure of the model and the games data
     return res.status(200).json({
       'structure': structure,
       'data': games
