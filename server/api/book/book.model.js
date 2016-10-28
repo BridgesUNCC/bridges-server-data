@@ -19,6 +19,7 @@ var BookSchema = new Schema({
   title: String,
   languages: [],
   subjects: [],
+  genres: [],
   metrics: Object,
   url: String,
   downloads: Number
