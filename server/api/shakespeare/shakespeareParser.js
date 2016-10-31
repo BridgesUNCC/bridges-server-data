@@ -35,8 +35,8 @@ function getSonnets() {
 
         // save sonnet
         output.push({
-          'title': i + '',
-          'type': 'sonnet',
+          'title': 'Sonnet ' + i,
+          'type': 'poem',
           'text': sonnet
         });
       }
@@ -67,7 +67,7 @@ function getPlays() {
         // save play
         output.push({
           'title': title,
-          'type': 'play',
+          'type': (title === 'A Lover\'s Complaint') ? 'poem': 'play',
           'text': play
         });
 
@@ -86,6 +86,7 @@ module.exports = function(cb) {
   }).then(function() {
     cb(null, output);
   }, function(err) {
+    console.log('error!?');
     cb(err, []); // Error: "It broke"
   });
 };

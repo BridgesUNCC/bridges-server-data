@@ -9,7 +9,7 @@
 var Test = require('../api/test/test.model');
 // var Game = require('../api/game/game.model').model;
 // var Book = require('../api/book/book.model').model;
-// var Shakespeare = require('../api/shakespeare/shakespeare.model').model;
+var Shakespeare = require('../api/shakespeare/shakespeare.model').model;
 
 // // Insert seed data below
 var testSeed = require('../api/test/test.seed.json');
@@ -32,13 +32,13 @@ Test.find({}).remove(function() {
 //     Book.create(bookSeed);
 // });
 
-// require('../api/shakespeare/shakespeareParser.js')(function(err, data){
-//   if(err) {
-//     console.log(err);
-//     return;
-//   }
-//   // Insert all shakespeare
-//   Shakespeare.find({}).remove(function() {
-//       Shakespeare.create(data);
-//   });
-// });
+require('../api/shakespeare/shakespeareParser.js')(function(err, data){
+  if(err) {
+    console.log(err);
+    return;
+  }
+  // Insert all shakespeare
+  Shakespeare.find({}).remove(function() {
+      Shakespeare.create(data);
+  });
+});

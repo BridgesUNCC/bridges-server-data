@@ -10,5 +10,5 @@ module.exports = {
     // uri: 'mongodb://' + MONGO_CREDENTIALS + '@localhost:3333' // connect to mongo container (when running on host)
   },
 
-  seedDB: false
+  seedDB: true
 };

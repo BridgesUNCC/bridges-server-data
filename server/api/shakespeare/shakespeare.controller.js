@@ -1,8 +1,8 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
  * GET    /shakespeare              ->  index
- * GET    /shakespeare/:title       ->  specific sonnet or play
- * GET    /shakespeare/sonnets      ->  all sonnets
+ * GET    /shakespeare/:title       ->  specific poem or play
+ * GET    /shakespeare/poems        ->  all poems
  * GET    /shakespeare/plays        ->  all plays
  *        ..?format=simple          ->  returns only characters
  */
@@ -23,7 +23,6 @@ function handleError(res, err) {
 */
 function removeCharacters(data) {
   data.forEach(function(text) {
-
     text.title = text.title.replace(/[^A-Za-z0-9 ]|([\n\t])/g, '').toLowerCase();
     text.text = text.text.replace(/[^A-Za-z0-9 ]|[\n\t]/g, '').toLowerCase();
   });
@@ -56,12 +55,12 @@ exports.index = function(req, res) {
   });
 };
 
-// Get all shakespeare sonnets
-exports.sonnets = function(req, res) {
+// Get all shakespeare poems
+exports.poems = function(req, res) {
   var format = req.query.format || false;
 
   // Query for shakespeare data
-  Shakespeare.find({ 'type': 'sonnet' }, {
+  Shakespeare.find({ 'type': 'poem' }, {
     '_id': 0,
     'title': 1,
     'type': 1,
