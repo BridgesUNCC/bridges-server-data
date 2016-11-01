@@ -25,7 +25,6 @@ module.exports = function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
-  console.log(config.root + '/public/img/favicon.ico');
   app.use(favicon(config.root + '/public/img/favicon.ico'));
   if ('production' === env) {
     app.use(morgan('dev'));
