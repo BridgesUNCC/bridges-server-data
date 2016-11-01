@@ -11,7 +11,7 @@ var seeds = {
   'tests': true,
   'games': false,
   'books': false,
-  'shakespeare': true
+  'shakespeare': false
 };
 
 // Insert seed models below

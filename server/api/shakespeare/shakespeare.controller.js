@@ -18,14 +18,18 @@ function handleError(res, err) {
   return res.status(500).send(err);
 }
 
-/* remove from text and title from each element:
-  all punctuation (any non-number and non-character elements)
-  all newlines and tabs
+/* clean text for each element:
+  remove all punctuation (any non-number and non-character elements)
+    (except hyphens separating words)
+  remove all newlines, tabs, and extra spaces
+  convert to all lower case
 */
 function removeCharacters(data) {
   data.forEach(function(text) {
-    text.title = text.title.replace(/[^A-Za-z0-9 ]|([\n\t])/g, '').toLowerCase();
-    text.text = text.text.replace(/[^A-Za-z0-9 ]|[\n\t]/g, '').toLowerCase();
+    text.text = text.text.replace(/[\n\t]/g, ' ');  // replace line breaks with spaces
+    text.text = text.text.replace(/[^-A-Za-z0-9 ]/g, '').toLowerCase();
+    text.text = text.text.replace(/  +/g, ' '); // force single spaces
+    text.text = text.text.replace(/(\-+\s)|(\s\-+)/g, ' '); // only keep hyphens separating words
   });
 }
 
