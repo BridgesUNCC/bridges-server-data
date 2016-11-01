@@ -64,6 +64,16 @@ function getPlays() {
         title = play.substring(4, play.indexOf('by')).trim().toProperCase(); // extract title
         play = play.replace(/\n\n\n+/g, '\n\n'); // remove extraneous linebreaks
 
+        // adjust titles where appropriate
+        if(title === '1605\n\n\nMeasure For Measure') title = 'Measure For Measure';
+        else if(title === 'King Richard Iii') title = 'The Life and Death of Richard the Third';
+        else if(title === 'Second Part Of King Henry Iv') title = 'The Second Part Of King Henry The Fourth';
+        else if(title === 'The First Part Of Henry The Sixth') title = 'The First Part Of King Henry The Sixth';
+        else if(title === 'King Henry The Eighth') title = 'The Life of King Henry the Eighth';
+        else if(title === 'King Richard The Second') title = 'The Life and Death of Richard the Second';
+        else if(title === 'Twelfth Night; Or, What You Will') title = 'Twelfth Night';
+        else if(title === 'Alls Well That Ends Well') title = 'All\'s Well That Ends Well';
+
         // save play
         output.push({
           'title': title,

@@ -4,6 +4,7 @@
  * GET    /shakespeare/:title       ->  specific poem or play
  * GET    /shakespeare/poems        ->  all poems
  * GET    /shakespeare/plays        ->  all plays
+ * GET    /shakespeare/titles       ->  all titles
  *        ..?format=simple          ->  returns only characters
  */
 
@@ -73,7 +74,7 @@ exports.poems = function(req, res) {
       removeCharacters(shakespeare);
     }
 
-    // return the structure of the model and the shakespeare data
+    // return the structure of the model and the shakespeare poems
     return res.status(200).json({
       'structure': structure,
       'data': shakespeare
@@ -99,10 +100,31 @@ exports.plays = function(req, res) {
       removeCharacters(shakespeare);
     }
 
-    // return the structure of the model and the shakespeare data
+    // return the structure of the model and the shakespeare plays
     return res.status(200).json({
       'structure': structure,
       'data': shakespeare
+    });
+  });
+};
+
+exports.titles = function(req, res) {
+  // Query for plays
+  Shakespeare.find({}, {
+    '_id': 0,
+    'title': 1
+  })
+  .exec(function (err, shakespeare) {
+    if(err) { return handleError(res, err); }
+
+    var titles = [];
+    for(var w in shakespeare) {
+      titles.push(shakespeare[w].title);
+    }
+
+    // return the shakespeare titles
+    return res.status(200).json({
+      'data': titles
     });
   });
 };
