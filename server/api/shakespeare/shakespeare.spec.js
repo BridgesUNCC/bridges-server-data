@@ -88,3 +88,38 @@ describe('GET /api/shakespeare/poems?format=simple', function() {
       });
   });
 });
+
+describe('GET /api/shakespeare/poems?format=stuff', function() {
+
+  it('should respond with JSON object, and contain an object and an Array', function(done) {
+    request(app)
+      .get('/api/shakespeare/poems?format=stuff')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err) { return done(err); }
+        res.body.should.be.instanceof(Object);
+        res.body.structure.should.be.instanceOf(Object);
+        res.body.data.should.be.instanceOf(Array);
+        done();
+      });
+  });
+});
+
+describe('GET /api/shakespeare/stuff', function() {
+
+  it('should respond with JSON object, and contain an object and an empty Array', function(done) {
+    request(app)
+      .get('/api/shakespeare/stuff')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err) { return done(err); }
+        res.body.should.be.instanceof(Object);
+        res.body.structure.should.be.instanceOf(Object);
+        res.body.data.should.be.instanceOf(Array);
+        res.body.data.length.should.be.equal(0);
+        done();
+      });
+  });
+});
