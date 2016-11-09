@@ -9,7 +9,7 @@ var structure = {
   'languages': 'Array of String',
   'genres': 'Array of String',
   'subjects': 'Array of String',
-  'metrics': 'Object characters: Number, words: Number, sentences: Number, difficult_words: Number',
+  'metrics': 'Object characters: Number, words: Number, sentences: Number, difficultWords: Number',
   'url': 'String',
   'downloads': 'Number'
 };
