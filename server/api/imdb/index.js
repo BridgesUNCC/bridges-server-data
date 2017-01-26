@@ -6,5 +6,6 @@ var controller = require('./imdb.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/count', controller.count);
 
 module.exports = router;

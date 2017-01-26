@@ -13,6 +13,19 @@ function handleError(res, err) {
   return res.status(500).send(err);
 }
 
+exports.count = function(req, res) {
+  IMDB.count()
+  .exec(function (err, count) {
+    if(err) { return handleError(res, err); }
+
+    // return the count of IMDB datapoints
+    return res.status(200).json({
+      'count': count
+    });
+  });
+};
+
+
 // Get list of IMDB data
 exports.index = function(req, res) {
   var limit = (req.query.limit &&

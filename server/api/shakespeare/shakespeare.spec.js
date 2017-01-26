@@ -134,7 +134,6 @@ describe('GET /api/shakespeare/titles', function() {
       .end(function(err, res) {
         if (err) { return done(err); }
         res.body.should.be.instanceof(Object);
-        res.body.structure.should.be.instanceOf(Object);
         res.body.data.should.be.instanceOf(Array);
         res.body.data.length.should.be.equal(190);
         done();

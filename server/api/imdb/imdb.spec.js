@@ -41,9 +41,9 @@ describe('GET /api/imdb?limit=10', function() {
 
 describe('GET /api/imdb?limit=something', function() {
 
-  it('should respond with JSON object, and contain an object and an Array of 1000 objects', function(done) {
+  it('should respond with JSON object, and contain an object and an Array of 1814 objects', function(done) {
     request(app)
-      .get('/api/books?limit=something')
+      .get('/api/imdb?limit=something')
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {
@@ -59,9 +59,9 @@ describe('GET /api/imdb?limit=something', function() {
 
 describe('GET /api/imdb?limit=-1', function() {
 
-  it('should respond with JSON object, and contain an object and an Array of 1000 objects', function(done) {
+  it('should respond with JSON object, and contain an object and an Array of 1814 objects', function(done) {
     request(app)
-      .get('/api/books?limit=-1')
+      .get('/api/imdb?limit=-1')
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {
