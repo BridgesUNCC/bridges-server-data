@@ -17,9 +17,9 @@ function handleError(res, err) {
 exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
-                +req.query.limit <= 1000) ?
+                +req.query.limit <= 1814) ?
         req.query.limit // use valid limit
-        : 1000;        // use actual number???
+        : 1814;        // use actual number
 
   // Query for <limit> actor movie pairs
   IMDB.find({},
