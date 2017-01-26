@@ -11,7 +11,8 @@ var seeds = {
   'tests': true,
   'games': false,
   'books': false,
-  'shakespeare': false
+  'shakespeare': false,
+  'imdb': true
 };
 
 // Insert seed models below
@@ -19,12 +20,13 @@ var Test = require('../api/test/test.model');
 var Game = require('../api/game/game.model').model;
 var Book = require('../api/book/book.model').model;
 var Shakespeare = require('../api/shakespeare/shakespeare.model').model;
+var IMDB = require('../api/imdb/imdb.model').model;
 
 // // Insert seed data below
 var testSeed = require('../api/test/test.seed.json');
 var gameSeed = require('../api/game/game.seed.json');
 var bookSeed = require('../api/book/classicsParser.js');
-
+var IMDBSeed = require('../api/imdb/imdbParser.js');
 
 // Insert seed inserts below
 if(seeds.tests) {
@@ -61,6 +63,19 @@ if(seeds.shakespeare) {
     // Insert all shakespeare
     Shakespeare.find({}).remove(function() {
         Shakespeare.create(data);
+    });
+  });
+}
+
+if(seeds.imdb) {
+  console.log('Seeding imdb');
+  require('../api/imdb/imdbParser.js')(function(err, data){
+    if(err) {
+      console.log(err);
+      return;
+    }
+    IMDB.find({}).remove(function() {
+        IMDB.create(data);
     });
   });
 }
