@@ -12,7 +12,7 @@ var seeds = {
   'games': false,
   'books': false,
   'shakespeare': false,
-  'imdb': true
+  'imdb': false
 };
 
 // Insert seed models below
