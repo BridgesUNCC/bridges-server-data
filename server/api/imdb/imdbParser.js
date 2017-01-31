@@ -24,8 +24,6 @@ function getPairs() {
   });
 }
 
-getPairs();
-
 module.exports = function(cb) {
   getPairs().then(function() {
     cb(null, output);
