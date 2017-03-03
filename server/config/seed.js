@@ -12,7 +12,8 @@ var seeds = {
   'games': false,
   'books': false,
   'shakespeare': false,
-  'imdb': false
+  'imdb': false,
+  'imdb2': true
 };
 
 // Insert seed models below
@@ -21,12 +22,14 @@ var Game = require('../api/game/game.model').model;
 var Book = require('../api/book/book.model').model;
 var Shakespeare = require('../api/shakespeare/shakespeare.model').model;
 var IMDB = require('../api/imdb/imdb.model').model;
+var IMDB2 = require('../api/imdb2/imdb2.model').model;
 
 // // Insert seed data below
 var testSeed = require('../api/test/test.seed.json');
 var gameSeed = require('../api/game/game.seed.json');
 var bookSeed = require('../api/book/classicsParser.js');
 var IMDBSeed = require('../api/imdb/imdbParser.js');
+var IMDB2Seed = require('../api/imdb2/imdb2.json');
 
 // Insert seed inserts below
 if(seeds.tests) {
@@ -77,5 +80,13 @@ if(seeds.imdb) {
     IMDB.find({}).remove(function() {
         IMDB.create(data);
     });
+  });
+}
+
+if(seeds.imdb2) {
+  console.log('Seeding imdb2');
+  // Insert all actor movie objects (484 records)
+  IMDB2.find({}).remove(function() {
+      IMDB2.create(IMDB2Seed);
   });
 }

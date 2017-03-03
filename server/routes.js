@@ -14,6 +14,7 @@ module.exports = function(app) {
   app.use('/api/books', require('./api/book'));
   app.use('/api/shakespeare', require('./api/shakespeare'));
   app.use('/api/imdb', require('./api/imdb'));
+  app.use('/api/imdb2', require('./api/imdb2'));
 
   app.use('/auth', require('./auth'));
 
