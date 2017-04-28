@@ -99,6 +99,7 @@ if(seeds.cancer) {
   Cancer.find({}).remove(function(err) {
     if(err) {
       console.log(err);
+      return;
     }
     Cancer.create(CancerSeed);
   });
