@@ -31,9 +31,9 @@ exports.count = function(req, res) {
 exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
-                +req.query.limit <= 5) ?
+                +req.query.limit <= 22140) ?
         req.query.limit // use valid limit
-        : 5;        // use actual number
+        : 22140;        // use actual number
 
   // Query for <limit> cancer records
   Cancer.find({},

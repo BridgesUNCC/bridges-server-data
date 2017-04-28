@@ -11,7 +11,7 @@ var structure = {
 };
 
 var CancerSchema = new Schema({
-  Age: String,
+  Age: Object,
   Year: Number,
   Data: Object,
   Area: String
