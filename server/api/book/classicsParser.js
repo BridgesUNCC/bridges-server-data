@@ -44,7 +44,7 @@ for( var i in data ) {
     book.author.name = b.bibliography.author.name;
     book.author.birth = b.bibliography.author.birth;
     book.author.death = b.bibliography.author.death;
-  book.title = b.bibliography.title;
+  book.title = b.bibliography.title.replace(new RegExp('\"', 'g'), '\'');
   book.languages = b.bibliography.languages;
   book.genres = parseGenre(b.bibliography.subjects);
   book.subjects = parseSubjects(b.bibliography.subjects);

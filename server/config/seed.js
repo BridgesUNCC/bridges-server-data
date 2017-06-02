@@ -10,7 +10,7 @@ console.log('Seeding DB');
 var seeds = {
   'tests': true,
   'games': false,
-  'books': false,
+  'books': true,
   'shakespeare': false,
   'imdb': false,
   'imdb2': false,
