@@ -7,5 +7,6 @@ var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/count', controller.count);
+router.get('/stats', controller.stats);
 
 module.exports = router;

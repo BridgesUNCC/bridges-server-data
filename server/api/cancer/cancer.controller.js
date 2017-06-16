@@ -51,3 +51,59 @@ exports.index = function(req, res) {
     });
   });
 };
+
+// Get stats for Cancer data
+exports.stats = function(req, res) {
+  //https://www.cdc.gov/cancer/npcr/uscs/glossary.htm
+
+  var limit = (req.query.limit &&
+                +req.query.limit > 0 &&
+                +req.query.limit <= 22140) ?
+        req.query.limit // use valid limit
+        : 22140;        // use actual number
+
+  // Query for <limit> cancer records
+  Cancer.find({},
+    {'_id': 0,
+     '__v': 0
+    }
+  )
+  .limit(limit)
+  .exec(function (err, cancer) {
+    if(err) { return handleError(res, err); }
+
+    var allStates = {};
+    var locs = [];
+    var addCount = 0;
+
+    for(var c in cancer) {
+      if (allStates.hasOwnProperty(cancer[c].Area)) {
+        // console.log('exists!');
+        if(allStates[cancer[c].Area].hasOwnProperty(cancer[c].Year)) {
+          if(allStates[cancer[c].Area][cancer[c].Year].hasOwnProperty(cancer[c].Data['Event Type'])) {
+            allStates[cancer[c].Area][cancer[c].Year][cancer[c].Data['Event Type']]++;
+          } else {
+            allStates[cancer[c].Area][cancer[c].Year][cancer[c].Data['Event Type']] = 1;
+          }
+        } else {
+          allStates[cancer[c].Area][cancer[c].Year] = {};
+          allStates[cancer[c].Area][cancer[c].Year][cancer[c].Data['Event Type']] = 1;
+        }
+
+
+      } else {
+        locs.push(cancer[c].Area);
+        allStates[cancer[c].Area] = {};
+        allStates[cancer[c].Area][cancer[c].Year] = {};
+        allStates[cancer[c].Area][cancer[c].Year][cancer[c].Data['Event Type']] = 1;
+      }
+    }
+
+
+    // return
+    return res.status(200).json({
+      hi: allStates,
+      locs: locs
+    });
+  });
+};
