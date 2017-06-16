@@ -14,7 +14,7 @@ var seeds = {
   'shakespeare': false,
   'imdb': false,
   'imdb2': false,
-  'cancer': false
+  'cancer': true
 };
 
 // Insert seed models below
