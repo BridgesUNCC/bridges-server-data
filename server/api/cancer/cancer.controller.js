@@ -52,6 +52,32 @@ exports.index = function(req, res) {
   });
 };
 
+// Get list of Cancer data with locations
+exports.withLoc = function(req, res) {
+  var limit = (req.query.limit &&
+                +req.query.limit > 0 &&
+                +req.query.limit <= 22140) ?
+        req.query.limit // use valid limit
+        : 22140;        // use actual number
+
+  // Query for <limit> cancer records
+  Cancer.find({'loc':{$ne:null}},
+    {'_id': 0,
+     '__v': 0
+    }
+  )
+  .limit(limit)
+  .exec(function (err, cancer) {
+    if(err) { return handleError(res, err); }
+    // return the structure of the model and the cancer data
+    return res.status(200).json({
+      'structure': structure,
+      'data': cancer
+    });
+  });
+};
+
+
 // Get stats for Cancer data
 exports.stats = function(req, res) {
   //https://www.cdc.gov/cancer/npcr/uscs/glossary.htm
