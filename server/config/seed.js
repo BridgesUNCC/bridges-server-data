@@ -15,7 +15,7 @@ var seeds = {
   'imdb': false,
   'imdb2': false,
   'cancer': false,
-  'crime': true
+  'crime': false
 };
 
 // Insert seed models below
