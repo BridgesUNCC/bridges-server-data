@@ -14,7 +14,8 @@ var seeds = {
   'shakespeare': false,
   'imdb': false,
   'imdb2': false,
-  'cancer': false
+  'cancer': false,
+  'crime': true
 };
 
 // Insert seed models below
@@ -25,6 +26,7 @@ var Shakespeare = require('../api/shakespeare/shakespeare.model').model;
 var IMDB = require('../api/imdb/imdb.model').model;
 var IMDB2 = require('../api/imdb2/imdb2.model').model;
 var Cancer = require('../api/cancer/cancer.model').model;
+var Crime = require('../api/crime/crime.model').model;
 
 // // Insert seed data below
 var testSeed = require('../api/test/test.seed.json');
@@ -33,6 +35,7 @@ var bookSeed = require('../api/book/classicsParser.js');
 var IMDBSeed = require('../api/imdb/imdbParser.js');
 var IMDB2Seed = require('../api/imdb2/imdb2.json');
 var CancerSeed = require('../api/cancer/cancer.json');
+var CrimeSeed = require('../api/crime/crimeParser.js');
 
 // Insert seed inserts below
 if(seeds.tests) {
@@ -102,5 +105,20 @@ if(seeds.cancer) {
       return;
     }
     Cancer.create(CancerSeed);
+  });
+}
+
+if(seeds.crime) {
+  console.log('Seeding crime');
+  // Insert all Crime data
+  require('../api/crime/crimeParser.js')(function(err, data){
+    if(err) {
+      console.log(err);
+      return;
+    }
+    // Insert all crime data
+    Crime.find({}).remove(function() {
+        Crime.create(data);
+    });
   });
 }

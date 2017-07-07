@@ -29,6 +29,7 @@ module.exports = function(app) {
   if ('production' === env) {
     app.use(morgan('dev'));
   }
+  app.use(express.static(__dirname + '/../../public'));
 
   if ('development' === env || 'test' === env) {
     app.use(require('connect-livereload')());

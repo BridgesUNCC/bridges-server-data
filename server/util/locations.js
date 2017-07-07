@@ -65,6 +65,10 @@
         return states.hasOwnProperty(name) ? states[name] : null;
   };
 
+  for(var s in states) {
+    console.log(states[s].avgPos + ",");
+  }
+
   module.exports = {
     lookup: lookFor
   };
