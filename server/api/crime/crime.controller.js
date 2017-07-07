@@ -30,9 +30,9 @@ exports.count = function(req, res) {
 exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
-                +req.query.limit <= 1000) ?
+                +req.query.limit <= 2524) ?
         req.query.limit // use valid limit
-        : 1000;        // use actual number
+        : 2524;        // use actual number
 
   // Query for <limit> crimes
   Crime.find({},{

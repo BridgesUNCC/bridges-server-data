@@ -16,6 +16,7 @@ describe('GET /api/crime', function() {
         res.body.should.be.instanceof(Object);
         res.body.structure.should.be.instanceOf(Object);
         res.body.data.should.be.instanceOf(Array);
+        res.body.data.length.should.be.equal(2524);
         done();
       });
   });
@@ -51,7 +52,7 @@ describe('GET /api/crime?limit=something', function() {
         res.body.should.be.instanceof(Object);
         res.body.structure.should.be.instanceOf(Object);
         res.body.data.should.be.instanceOf(Array);
-        res.body.data.length.should.be.equal(1000);
+        res.body.data.length.should.be.equal(2524);
         done();
       });
   });
@@ -69,7 +70,7 @@ describe('GET /api/crime?limit=-1', function() {
         res.body.should.be.instanceof(Object);
         res.body.structure.should.be.instanceOf(Object);
         res.body.data.should.be.instanceOf(Array);
-        res.body.data.length.should.be.equal(1000);
+        res.body.data.length.should.be.equal(2524);
         done();
       });
   });

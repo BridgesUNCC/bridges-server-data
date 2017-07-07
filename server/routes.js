@@ -20,12 +20,12 @@ module.exports = function(app) {
 
   app.use('/auth', require('./auth'));
 
-  app.use('/api/*', function(req, res) {
+  app.use('/', function(req, res) {
     res.status(200).json({'hello':'there!'});
   });
 
-  app.get('*', function(req, res) {
-    res.sendFile('index.html', {'root': __dirname + '/../public'}); // load the single view file
-  });
+  // app.get('*', function(req, res) {
+  //   res.sendFile('index.html', {'root': __dirname + '/../public'}); // load the single view file
+  // });
 
 };
