@@ -40,7 +40,7 @@ exports.index = function(req, res) {
     '__v': 0
   })
   .limit(limit)
-  .exec(function (err, crimes) {
+  .lean().exec(function (err, crimes) {
     if(err) { return handleError(res, err); }
 
     // return the structure of the model and the crime data

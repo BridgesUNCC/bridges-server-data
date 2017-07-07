@@ -45,7 +45,7 @@ exports.index = function(req, res) {
     'type': 1,
     'text': 1
   })
-  .exec(function (err, shakespeare) {
+  .lean().exec(function (err, shakespeare) {
     if(err) { return handleError(res, err); }
 
     if(format === 'simple') {
@@ -71,7 +71,7 @@ exports.poems = function(req, res) {
     'type': 1,
     'text': 1
   })
-  .exec(function (err, shakespeare) {
+  .lean().exec(function (err, shakespeare) {
     if(err) { return handleError(res, err); }
 
     if(format === 'simple') {
@@ -97,7 +97,7 @@ exports.plays = function(req, res) {
     'type': 1,
     'text': 1
   })
-  .exec(function (err, shakespeare) {
+  .lean().exec(function (err, shakespeare) {
     if(err) { return handleError(res, err); }
 
     if(format === 'simple') {
@@ -118,7 +118,7 @@ exports.titles = function(req, res) {
     '_id': 0,
     'title': 1
   })
-  .exec(function (err, shakespeare) {
+  .lean().exec(function (err, shakespeare) {
     if(err) { return handleError(res, err); }
 
     var titles = [];

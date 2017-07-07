@@ -8,3 +8,7 @@ Dockerfile
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Artillery Files
+artillery_report_*.json
+

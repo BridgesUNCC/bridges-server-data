@@ -34,9 +34,9 @@ exports.index = function(req, res) {
     'downloads': 1
   })
   .limit(limit)
-  .exec(function (err, books) {
+  .lean().exec(function (err, books) {
     if(err) { return handleError(res, err); }
-    
+
     // return the structure of the model and the book data
     return res.status(200).json({
       'structure': structure,

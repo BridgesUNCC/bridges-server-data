@@ -41,7 +41,7 @@ exports.index = function(req, res) {
     }
   )
   .limit(limit)
-  .exec(function (err, imdb) {
+  .lean().exec(function (err, imdb) {
     if(err) { return handleError(res, err); }
 
     // return the structure of the model and the IMDB data

@@ -42,7 +42,7 @@ exports.index = function(req, res) {
     }
   )
   .limit(limit)
-  .exec(function (err, cancer) {
+  .lean().exec(function (err, cancer) {
     if(err) { return handleError(res, err); }
     // return the structure of the model and the cancer data
     return res.status(200).json({

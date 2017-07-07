@@ -30,7 +30,7 @@ exports.index = function(req, res) {
     'genre': 1
   })
   .limit(limit)
-  .exec(function (err, games) {
+  .lean().exec(function (err, games) {
     if(err) { return handleError(res, err); }
 
     // return the structure of the model and the games data
