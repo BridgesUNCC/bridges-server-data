@@ -9,6 +9,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
 var mongoose = require('mongoose');
+var helmet = require('helmet');	// https://github.com/helmetjs/helmet
+
 var config = require('./config/environment');
 
 // Connect to database
@@ -25,6 +27,7 @@ if(config.seedDB) {require('./config/seed'); }
 
 // Setup server
 var app = express();
+app.use(helmet());
 var server = require('http').createServer(app);
 var socketio = require('socket.io')(server, {
   serveClient: config.env !== 'production',
