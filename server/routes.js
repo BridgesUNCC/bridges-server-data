@@ -20,12 +20,26 @@ module.exports = function(app) {
 
   app.use('/auth', require('./auth'));
 
-  app.use('/', function(req, res) {
-    res.status(200).json({'hello':'there!'});
+  app.use('/api/datasets', function(req, res){
+    var datasets = {
+      'games': {'endpoint': '/api/games', 'description': 'Curated IGN Video Game Ratings'},
+      'books': {'endpoint': '/api/books', 'description': 'Metadata from the top 1000 books (by download) from Project Gutenberg'},
+      'shakespeare': {'endpoint': '/api/shakespeare', 'description': 'The entire works of Shakespeare'},
+      'imdb': {'endpoint': '/api/imdb', 'description': 'Curated actor/movie pairs from IMDB'},
+      'cancer': {'endpoint': '/api/cancer', 'description': 'Cancer incidence and mortality rates'},
+      'crime': {'endpoint': '/api/crime', 'description': 'Homicide rates and proportions in US states from 1986 to 2015'}
+    };
+
+    res.json(datasets);
   });
 
-  // app.get('*', function(req, res) {
-  //   res.sendFile('index.html', {'root': __dirname + '/../public'}); // load the single view file
+  // app.use('/', function(req, res) {
+  //   res.status(200).json({'hello':'there!'});
   // });
+
+  app.get('*', function(req, res) {
+    // res.sendFile('index.html', {'root': __dirname + '/../public'}); // load the single view file
+    res.redirect('/');
+  });
 
 };

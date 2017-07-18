@@ -1,5 +1,7 @@
 'use strict';
+var $ = $ || null;
 
+/* Scroll to a given element on the page */
 function scrollTo(el) {
 
   var offset = $(el).offset();
@@ -12,6 +14,7 @@ function scrollTo(el) {
   });
 }
 
+/* Jump to the top of the page */
 $('#scrollToTopButton').on('click', function() {
   $('html, body').animate({
     scrollTop: 0,
@@ -40,7 +43,7 @@ $(document).on('scroll', function() {
   var pos = $(window).scrollTop(),
     op = 0.0;
 
-  if(pos > 600) return;
+  if(pos > 600) { return; }
 
   if(pos < 100) { op = 0.9; }
   else if(pos < 200) { op = 0.75; }
@@ -55,3 +58,44 @@ $(document).on('scroll', function() {
     opacity: op
   });
 });
+
+function getDatasetMetadata() {
+  var datasetString = '';
+
+  $.ajax({
+    url: '/api/datasets',
+    context: $('#current_datasets_content'),
+    success: function(data){
+
+      for(var d in data) {
+        datasetString = '<div class="datasetMeta">';
+        datasetString += '<h3>-' + d + '-</h3>';
+        datasetString += data[d].description + '<br /><br />';
+        datasetString += 'API endpoint: <a href="' + data[d].endpoint + '" target="_blank">' + data[d].endpoint + '</a><br /><br />';
+        datasetString += '<button type="button" class="btn dataExampleButton" data-dataset="' + d + '" data-url="'+ data[d].endpoint +'">See Example Data</button>&nbsp';
+        datasetString += '<button type="button" class="btn dataAssignmentExample" data-url="'+ 1 +'">See Example Assignment</button>';
+        datasetString += '<pre id="'+ d +'Snippet" class="snippet"></pre>';
+        datasetString += '</div>';
+
+        this.append(datasetString);
+      }
+
+      /* Get sample data (first element from endpoint)*/
+      $('.dataExampleButton').click(function() {
+        var dataset = this.dataset.dataset;
+        $.ajax({
+          url: this.dataset.url + '?limit=1',
+          success: function(data){
+            console.log(data)
+            $('#'+dataset+'Snippet').show().animate({'max-height': '400px'}).text(JSON.stringify(data.data[0], null, 4));
+          }
+        });
+      });
+
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    getDatasetMetadata();
+}, false);
