@@ -22,12 +22,12 @@ module.exports = function(app) {
 
   app.use('/api/datasets', function(req, res){
     var datasets = {
-      'games': {'endpoint': '/api/games', 'description': 'Curated IGN Video Game Ratings'},
-      'books': {'endpoint': '/api/books', 'description': 'Metadata from the top 1000 books (by download) from Project Gutenberg'},
-      'shakespeare': {'endpoint': '/api/shakespeare', 'description': 'The entire works of Shakespeare'},
-      'imdb': {'endpoint': '/api/imdb', 'description': 'Curated actor/movie pairs from IMDB'},
-      'cancer': {'endpoint': '/api/cancer', 'description': 'Cancer incidence and mortality rates'},
-      'crime': {'endpoint': '/api/crime', 'description': 'Homicide rates and proportions in US states from 1986 to 2015'}
+      'games': {'endpoint': '/api/games', 'description': 'Curated IGN Video Game Ratings', 'reference': ''},
+      'books': {'endpoint': '/api/books', 'description': 'Metadata from the top 1000 books (by download) from Project Gutenberg', 'reference': ''},
+      'shakespeare': {'endpoint': '/api/shakespeare', 'description': 'The entire works of Shakespeare', 'reference': ''},
+      'imdb': {'endpoint': '/api/imdb', 'description': 'Curated actor/movie pairs from IMDB', 'reference': ''},
+      'cancer': {'endpoint': '/api/cancer', 'description': 'Cancer incidence and mortality rates', 'reference': ''},
+      'crime': {'endpoint': '/api/crime', 'description': 'Homicide rates and proportions in US states from 1986 to 2015', 'reference': ''}
     };
 
     res.json(datasets);

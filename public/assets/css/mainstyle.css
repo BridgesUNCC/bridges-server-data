@@ -90,6 +90,27 @@ Theme colors: https://coolors.co/330036-38182f-2f394d-56666b-eee1b3
     background-color: lightgrey;
 }
 
+.dataExampleButton {
+  background-color: steelblue;
+  color: white;
+  -moz-box-shadow:     0 1px 2px #000000;
+  -webkit-box-shadow:  0 1px 2px #000000;
+  box-shadow:          0 1px 2px #000000;
+}
+
+.dataExampleButton:hover  {
+  color: white;
+  -moz-box-shadow:     0 0px 0px #000000;
+  -webkit-box-shadow:  0 0px 0px #000000;
+  box-shadow:          0 0px 0px #000000;
+}
+.dataExampleButton:active {
+  color: white;
+}
+.dataExampleButton:focus {
+  color: white;
+}
+
 
 .center-icon {
   position: relative;

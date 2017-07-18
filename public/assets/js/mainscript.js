@@ -73,8 +73,9 @@ function getDatasetMetadata() {
         datasetString += data[d].description + '<br /><br />';
         datasetString += 'API endpoint: <a href="' + data[d].endpoint + '" target="_blank">' + data[d].endpoint + '</a><br /><br />';
         datasetString += '<button type="button" class="btn dataExampleButton" data-dataset="' + d + '" data-url="'+ data[d].endpoint +'">See Example Data</button>&nbsp';
-        datasetString += '<button type="button" class="btn dataAssignmentExample" data-url="'+ 1 +'">See Example Assignment</button>';
-        datasetString += '<pre id="'+ d +'Snippet" class="snippet"></pre>';
+        datasetString += '<button type="button" class="btn dataAssignmentExample disabled" data-url="'+ 1 +'">See Example Assignment</button>';
+        datasetString += '<pre id="'+ d +'Snippet" class="snippet"></pre><br /><br />';
+        datasetString += data[d].reference + '<br />';
         datasetString += '</div>';
 
         this.append(datasetString);
