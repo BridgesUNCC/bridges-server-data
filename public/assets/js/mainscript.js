@@ -97,7 +97,10 @@ function getDatasetMetadata() {
             $(this).text('See Example Data');
 
             // add json data to the code snippet window
-            $('#'+dataset+'Snippet').show().animate({'max-height': '400px'}).text(JSON.stringify(data.data[0], null, 4));
+            $('#'+dataset+'Snippet').show().animate({
+              'max-height': '400px',
+              'max-width': $(window).width() * 0.75
+            }).text(JSON.stringify(data.data[0], null, 4));
           }
         });
       });
