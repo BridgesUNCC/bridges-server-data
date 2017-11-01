@@ -22,12 +22,12 @@ module.exports = function(app) {
 
   app.use('/api/datasets', function(req, res){
     var datasets = {
-      'games': {'endpoint': '/api/games', 'description': 'Curated IGN Video Game Ratings', 'reference': ''},
-      'books': {'endpoint': '/api/books', 'description': 'Metadata from the top 1000 books (by download) from Project Gutenberg', 'reference': ''},
-      'shakespeare': {'endpoint': '/api/shakespeare', 'description': 'The entire works of Shakespeare', 'reference': ''},
-      'imdb': {'endpoint': '/api/imdb', 'description': 'Curated actor/movie pairs from IMDB', 'reference': ''},
-      'cancer': {'endpoint': '/api/cancer', 'description': 'Cancer incidence and mortality rates', 'reference': ''},
-      'crime': {'endpoint': '/api/crime', 'description': 'Homicide rates and proportions in US states from 1986 to 2015', 'reference': ''}
+      'games': {'endpoint': '/api/games', 'description': 'Curated IGN Video Game Ratings', 'reference': '', 'size': '1.6 MB'},
+      'books': {'endpoint': '/api/books', 'description': 'Metadata from the top 1000 books (by download) from Project Gutenberg', 'reference': '', 'size': '387 KB'},
+      'shakespeare': {'endpoint': '/api/shakespeare', 'description': 'The entire works of Shakespeare', 'reference': '', 'size': '5 MB'},
+      'imdb': {'endpoint': '/api/imdb', 'description': 'Curated actor/movie pairs from IMDB', 'reference': '', 'size': '120 KB'},
+      'cancer': {'endpoint': '/api/cancer', 'description': 'Cancer incidence and mortality rates', 'reference': '', 'size': '6.9 MB'},
+      'crime': {'endpoint': '/api/crime', 'description': 'Homicide rates and proportions in US states from 1986 to 2015', 'reference': '', 'size': '325 KB'}
     };
 
     res.json(datasets);

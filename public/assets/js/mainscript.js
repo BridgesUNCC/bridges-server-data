@@ -68,10 +68,12 @@ function getDatasetMetadata() {
     success: function(data){
 
       for(var d in data) {
+        console.log(d);
         datasetString = '<div class="datasetMeta">';
         datasetString += '<h3>-' + d + '-</h3>';
         datasetString += data[d].description + '<br /><br />';
-        datasetString += 'API endpoint: <a href="' + data[d].endpoint + '" target="_blank">' + data[d].endpoint + '</a><br /><br />';
+        datasetString += 'API endpoint: <a href="' + data[d].endpoint + '" target="_blank">' + data[d].endpoint + '</a><br />';
+        datasetString += 'Download Dataset: <a href="' + data[d].endpoint + '" download="'+ d + '">' + data[d].size + '</a><br /><br />';
         datasetString += '<button type="button" class="btn dataExampleButton" data-dataset="' + d + '" data-url="'+ data[d].endpoint +'">See Example Data</button>&nbsp';
         datasetString += '<button type="button" class="btn dataAssignmentExample disabled" data-url="'+ 1 +'">See Example Assignment</button>';
         datasetString += '<pre id="'+ d +'Snippet" class="snippet"></pre><br /><br />';
@@ -97,10 +99,7 @@ function getDatasetMetadata() {
             $(this).text('See Example Data');
 
             // add json data to the code snippet window
-            $('#'+dataset+'Snippet').show().animate({
-              'max-height': '400px',
-              'max-width': $(window).width() * 0.75
-            }).text(JSON.stringify(data.data[0], null, 4));
+            $('#'+dataset+'Snippet').show().animate({'max-height': '400px'}).text(JSON.stringify(data.data[0], null, 4));
           }
         });
       });
