@@ -1,24 +1,13 @@
 'use strict';
 var $ = $ || null;
 
-/* Scroll to a given element on the page */
-function scrollTo(el) {
-
-  var offset = $(el).offset();
-  offset.left -= 20;
-  offset.top -= 20;
-
-  $('html, body').animate({
-    scrollTop: offset.top,
-    scrollLeft: offset.left
-  });
-}
-
-/* Jump to the top of the page */
-$('#scrollToTopButton').on('click', function() {
-  $('html, body').animate({
-    scrollTop: 0,
-    scrollLeft: 0
+$( document ).ready(function() {
+  /* Jump to the top of the page */
+  $('#scrollToTopButton').on('click', function() {
+    $('html, body').animate({
+      scrollTop: 0,
+      scrollLeft: 0
+    });
   });
 });
 
@@ -59,74 +48,44 @@ $(document).on('scroll', function() {
   });
 });
 
-function getDatasetMetadata() {
-  var datasetString = '';
+/* Get sample data (first element from endpoint)*/
+$('.dataExampleButton').click(function() {
+
+  var dataset = this.dataset.dataset;
+
+  // set up 'loading' indicator
+  $(this).text('Loading...');
 
   $.ajax({
-    url: '/api/datasets',
-    context: $('#current_datasets_content'),
+    url: this.dataset.url + '?limit=1',
+    context: this,
     success: function(data){
+      // remove 'loading' indicator
+      $(this).text('See Example Data');
 
-      for(var d in data) {
-        datasetString = '<div class="datasetMeta">';
-        datasetString += '<h3>-' + d + '-</h3>';
-        datasetString += data[d].description + '<br /><br />';
-        datasetString += 'API endpoint: <a href="' + data[d].endpoint + '" target="_blank">' + data[d].endpoint + '</a><br />';
-        datasetString += 'Download Dataset: <a href="' + data[d].endpoint + '" download="'+ d + '">' + data[d].size + '</a><br /><br />';
-        datasetString += '<button type="button" class="btn dataExampleButton" data-dataset="' + d + '" data-url="'+ data[d].endpoint +'">See Example Data</button>&nbsp';
-        datasetString += '<button type="button" class="btn dataAssignmentExample" data-dataset="'+ d +'" data-url="'+ data[d].snippet +'">See Example Assignment</button>';
-        datasetString += '<pre id="'+ d +'Snippet" class="snippet"></pre><br /><br />';
-        datasetString += data[d].reference + '<br />';
-        datasetString += '</div>';
-
-        this.append(datasetString);
-      }
-
-      /* Get sample data (first element from endpoint)*/
-      $('.dataExampleButton').click(function() {
-
-        var dataset = this.dataset.dataset;
-
-        // set up 'loading' indicator
-        $(this).text('Loading...');
-
-        $.ajax({
-          url: this.dataset.url + '?limit=1',
-          context: this,
-          success: function(data){
-            // remove 'loading' indicator
-            $(this).text('See Example Data');
-
-            // add json data to the code snippet window
-            $('#'+dataset+'Snippet').show().animate({'max-height': '400px'}).text(JSON.stringify(data.data[0], null, 4));
-          }
-        });
-      });
-
-      /* Get sample data (first element from endpoint)*/
-      $('.dataAssignmentExample').click(function() {
-
-        var dataset = this.dataset.dataset;
-
-        // set up 'loading' indicator
-        $(this).text('Loading...');
-
-        $.ajax({
-          url: 'https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/' + this.dataset.url,
-          context: this,
-          success: function(data){
-            // remove 'loading' indicator
-            $(this).text('See Example Assignment');
-
-            // add json data to the code snippet window
-            $('#'+dataset+'Snippet').show().animate({'max-height': '400px', 'width': '80%'}).text(data);
-          }
-        });
-      });
+      // add json data to the code snippet window
+      $('#'+dataset+'Snippet').show().animate({'max-height': '400px'}).text(JSON.stringify(data.data[0], null, 4));
     }
   });
-}
+});
 
-document.addEventListener('DOMContentLoaded', function() {
-    getDatasetMetadata();
-}, false);
+/* Get sample data (first element from endpoint)*/
+$('.dataAssignmentExample').click(function() {
+
+  var dataset = this.dataset.dataset;
+
+  // set up 'loading' indicator
+  $(this).text('Loading...');
+
+  $.ajax({
+    url: 'https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/' + this.dataset.url,
+    context: this,
+    success: function(data){
+      // remove 'loading' indicator
+      $(this).text('See Example Assignment');
+
+      // add json data to the code snippet window
+      $('#'+dataset+'Snippet').show().animate({'max-height': '400px', 'width': '80%'}).text(data);
+    }
+  });
+});

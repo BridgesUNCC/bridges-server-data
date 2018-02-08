@@ -12,7 +12,7 @@
     "description": "Metadata from the top 1000 books (by download) from Project Gutenberg",
     "reference": "",
     "size": "387 KB",
-    "examples": ["books/booksSnippet.java"]
+    "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/books/booksSnippet.java"}]
   },
   {
     "dataset": "shakespeare",

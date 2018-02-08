@@ -1,13 +1,31 @@
 
-each dataset, index in datasets
-  div.dataset
-    div.title= dataset.dataset
-    div.url= dataset.endpoint
-    div.description= dataset.description
-    div.size= dataset.size
-    div.references
-      each ref, index in dataset.references
-        div.reference= ref
-    div.examples
-      each ex, index in dataset.examples
-        div.reference= ex
+div#current_datasets.row.row-centered.col-md-10.col-md-offset-1
+  h1 Current Datasets
+
+  each dataset, index in datasets
+      div.dataset.col-md-12.centered(style=(index % 2 != 0 ? "background-color: white" : "background-color: lightgrey"))
+        h3
+          div.title= dataset.dataset
+
+        div.description= dataset.description
+
+        div.url API endpoint:
+          a(href=dataset.endpoint target="_blank")   #{dataset.endpoint}
+
+        div.download Download a copy:
+          a(href=dataset.endpoint download=dataset.dataset)  #{dataset.size}
+
+        div.references
+          each ref, index in dataset.references
+            div.reference= ref
+
+        div.examples
+          -if(dataset.examples.length > 0)
+
+            div.example BRIDGES Code Stubs:
+              each ex, index in dataset.examples
+                  p
+                    a(href=ex.link target="_blank") #{ex.lang}
+
+
+        a.btn.btn-primary(href=dataset.endpoint + "/home") more details...

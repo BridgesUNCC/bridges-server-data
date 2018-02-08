@@ -32,12 +32,18 @@ block content
                   li Visualization capabilities so you can debug, view, and share your data structures on the web
 
 
-                div.col-md-8
-                  p Interested?
-                  p.centered
-                    a(href="https://bridgesuncc.github.io/" target="_blank") Check out our documentation
-                  p.centered
-                    a(href="https://bridges-cs.herokuapp.com/" target="_blank") Head over to our user gallery
+              div.col-md-6.centered
+                p Interested?
+                p
+                  a(href="https://bridgesuncc.github.io/" target="_blank") Check out our documentation
+                p
+                  a(href="https://bridges-cs.herokuapp.com/" target="_blank") Head over to our user gallery
 
-                    
+              div.col-md-5.centered
+                p The BRIDGES project is funded by a TUES grant from the
+                  a(href="https://www.nsf.gov/" target="_blank") National Science Foundation
+
   include alldatasets
+
+  div#scrollToTopButton(aria-label="scroll to top")
+    span.glyphicon.glyphicon-chevron-up.center-icon(aria-hidden="true")
