@@ -14,7 +14,7 @@ function handleError(res, err) {
 }
 
 // Get list of game data
-exports.raw = function(req, res) {
+exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
                 +req.query.limit <= 17534) ?
@@ -39,8 +39,4 @@ exports.raw = function(req, res) {
       'data': games
     });
   });
-};
-
-exports.index = function(req, res) {
-  res.render('dataset', { title: 'Game Dataset' });
 };

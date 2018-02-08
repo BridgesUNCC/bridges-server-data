@@ -7,7 +7,7 @@ var router = express.Router();
 
 router.get('/raw', controller.raw);
 router.get('/', controller.index);
-// router.get('/snippet/:lang', controller.snippet);
+router.get('/:dataset', controller.dataset);
 
 router.getDatasets = controller.getDatasets;
 

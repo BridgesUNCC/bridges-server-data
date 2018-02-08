@@ -5,8 +5,6 @@ var controller = require('./game.controller');
 
 var router = express.Router();
 
-router.get('/', controller.raw);
-router.get('/home', controller.index);
-// router.get('/snippet/:lang', controller.snippet);
+router.get('/', controller.index);
 
 module.exports = router;

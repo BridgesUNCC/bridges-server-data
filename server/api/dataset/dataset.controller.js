@@ -37,6 +37,16 @@ exports.getDatasets = function(callback) {
   });
 };
 
+exports.dataset = function(req, res) {
+  Dataset.find({'dataset': req.params.dataset},{
+    '_id': 0
+  }).exec(function(err, dataset) {
+    if(err) { res.json({'oh': 'noes'}); }
+    res.json(dataset);
+    // res.render('dataset', {title: 'BRIDGES Dataset', dataset: dataset});
+  });
+};
+
 exports.index = function(req, res) {
   exports.getDatasets(function(err, datasets) {
     res.render('alldatasets', { title: 'BRIDGES Datasets', datasets: datasets});
