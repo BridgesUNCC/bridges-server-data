@@ -1,0 +1,49 @@
+[{
+    "dataset": "game",
+    "endpoint": "/api/games",
+    "description": "Curated IGN Video Game Ratings",
+    "references": [],
+    "size": "1.6 MB",
+    "examples": []
+  },
+  {
+    "dataset": "book",
+    "endpoint": "/api/books",
+    "description": "Metadata from the top 1000 books (by download) from Project Gutenberg",
+    "reference": "",
+    "size": "387 KB",
+    "examples": ["books/booksSnippet.java"]
+  },
+  {
+    "dataset": "shakespeare",
+    "endpoint": "/api/shakespeare",
+    "description": "The entire works of Shakespeare",
+    "reference": "",
+    "size": "5 MB",
+    "examples": []
+  },
+  {
+    "dataset": "imdb",
+    "endpoint": "/api/imdb",
+    "description": "Curated actor/movie pairs from IMDB",
+    "reference": "",
+    "size": "120 KB",
+    "examples": []
+  },
+  {
+    "dataset": "cancer",
+    "endpoint": "/api/cancer",
+    "description": "Cancer incidence and mortality rates",
+    "reference": "",
+    "size": "6.9 MB",
+    "examples": []
+  },
+  {
+    "dataset": "crime",
+    "endpoint": "/api/crime",
+    "description": "Homicide rates and proportions in US states from 1986 to 2015",
+    "reference": "",
+    "size": "325 KB",
+    "examples": []
+  }
+]

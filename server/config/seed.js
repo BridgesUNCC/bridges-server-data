@@ -8,6 +8,7 @@
 console.log('Seeding DB');
 
 var seeds = {
+  'datasets': true,
   'tests': true,
   'games': false,
   'books': false,
@@ -19,6 +20,7 @@ var seeds = {
 };
 
 // Insert seed models below
+var Dataset = require('../api/dataset/dataset.model').model;
 var Test = require('../api/test/test.model');
 var Game = require('../api/game/game.model').model;
 var Book = require('../api/book/book.model').model;
@@ -29,6 +31,7 @@ var Cancer = require('../api/cancer/cancer.model').model;
 var Crime = require('../api/crime/crime.model').model;
 
 // // Insert seed data below
+var DatasetSeed = require('../api/dataset/dataset.seed.json');
 var testSeed = require('../api/test/test.seed.json');
 var gameSeed = require('../api/game/game.seed.json');
 var bookSeed = require('../api/book/classicsParser.js');
@@ -38,6 +41,13 @@ var CancerSeed = require('../api/cancer/cancer.json');
 var CrimeSeed = require('../api/crime/crimeParser.js');
 
 // Insert seed inserts below
+if(seeds.datasets) {
+  console.log('Seeding datasets');
+  Dataset.find({}).remove(function() {
+    Dataset.create(DatasetSeed);
+  });
+}
+
 if(seeds.tests) {
   console.log('Seeding tests');
   Test.find({}).remove(function() {

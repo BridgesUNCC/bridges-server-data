@@ -37,6 +37,9 @@ require('./config/socketio')(socketio);
 require('./config/express')(app);
 require('./routes')(app);
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'pug');
+
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));

@@ -69,7 +69,7 @@ Theme colors: https://coolors.co/330036-38182f-2f394d-56666b-eee1b3
   display: none;
   padding: 15px;
   width: 50%;
-  max-width: 600px;
+  /*max-width: 600px;*/
   margin: 0 auto;
   margin-top: 15px;
   overflow: scroll;

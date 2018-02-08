@@ -1,0 +1,13 @@
+
+each dataset, index in datasets
+  div.dataset
+    div.title= dataset.dataset
+    div.url= dataset.endpoint
+    div.description= dataset.description
+    div.size= dataset.size
+    div.references
+      each ref, index in dataset.references
+        div.reference= ref
+    div.examples
+      each ex, index in dataset.examples
+        div.reference= ex

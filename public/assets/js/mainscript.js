@@ -68,14 +68,13 @@ function getDatasetMetadata() {
     success: function(data){
 
       for(var d in data) {
-        console.log(d);
         datasetString = '<div class="datasetMeta">';
         datasetString += '<h3>-' + d + '-</h3>';
         datasetString += data[d].description + '<br /><br />';
         datasetString += 'API endpoint: <a href="' + data[d].endpoint + '" target="_blank">' + data[d].endpoint + '</a><br />';
         datasetString += 'Download Dataset: <a href="' + data[d].endpoint + '" download="'+ d + '">' + data[d].size + '</a><br /><br />';
         datasetString += '<button type="button" class="btn dataExampleButton" data-dataset="' + d + '" data-url="'+ data[d].endpoint +'">See Example Data</button>&nbsp';
-        datasetString += '<button type="button" class="btn dataAssignmentExample disabled" data-url="'+ 1 +'">See Example Assignment</button>';
+        datasetString += '<button type="button" class="btn dataAssignmentExample" data-dataset="'+ d +'" data-url="'+ data[d].snippet +'">See Example Assignment</button>';
         datasetString += '<pre id="'+ d +'Snippet" class="snippet"></pre><br /><br />';
         datasetString += data[d].reference + '<br />';
         datasetString += '</div>';
@@ -100,6 +99,27 @@ function getDatasetMetadata() {
 
             // add json data to the code snippet window
             $('#'+dataset+'Snippet').show().animate({'max-height': '400px'}).text(JSON.stringify(data.data[0], null, 4));
+          }
+        });
+      });
+
+      /* Get sample data (first element from endpoint)*/
+      $('.dataAssignmentExample').click(function() {
+
+        var dataset = this.dataset.dataset;
+
+        // set up 'loading' indicator
+        $(this).text('Loading...');
+
+        $.ajax({
+          url: 'https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/' + this.dataset.url,
+          context: this,
+          success: function(data){
+            // remove 'loading' indicator
+            $(this).text('See Example Assignment');
+
+            // add json data to the code snippet window
+            $('#'+dataset+'Snippet').show().animate({'max-height': '400px', 'width': '80%'}).text(data);
           }
         });
       });
