@@ -1,5 +1,43 @@
 extends layout
 
 block content
-  p hey!
+  div.container-flex
+
+    div.header
+      div.headerbg
+      div.headertext
+        h1 Bridges Data
+
+    div.row
+        div.col-md-5.col-md-offset-1.centered
+          div.item
+            p.lead Welcome to the Bridges Data site!
+
+            div.row.text-left
+              div.col-xs-10.col-xs-offset-1
+                p Our goal is to provide easy access to a growing collection of interesting open-source datasets.
+
+                p Scroll down for a full list of datasets we currently support.
+
+        div.col-md-5.centered
+          div.item
+            p.lead What is Bridges?
+
+            div.row.text-left
+              div.col-xs-10.col-xs-offset-1
+                p Bridges is an open-source software package to make learning data structures more interesting:
+
+                ul
+                  li Built-in connections to real-world datasets reduces the overhead of reading and parsing datafiles
+                  li Visualization capabilities so you can debug, view, and share your data structures on the web
+
+
+                div.col-md-8
+                  p Interested?
+                  p.centered
+                    a(href="https://bridgesuncc.github.io/" target="_blank") Check out our documentation
+                  p.centered
+                    a(href="https://bridges-cs.herokuapp.com/" target="_blank") Head over to our user gallery
+
+                    
   include alldatasets
