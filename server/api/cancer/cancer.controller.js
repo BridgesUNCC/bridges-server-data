@@ -133,3 +133,23 @@ exports.stats = function(req, res) {
     });
   });
 };
+
+exports.findOne = function(req, res) {
+  Cancer.count().exec(function (err, count) {
+
+    // Get a random entry
+    var random = Math.floor(Math.random() * count);
+
+    Cancer.findOne({},{
+      '_id': 0,
+      '__v': 0
+    })
+    .skip(random)
+    .exec(function(err, cancer) {
+      if(err) { return handleError(res, err); }
+
+      // return the cancer data
+      return res.status(200).json(cancer);
+    });
+  });
+};

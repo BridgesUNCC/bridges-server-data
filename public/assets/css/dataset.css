@@ -29,6 +29,10 @@ pre {
   margin-top: 10px;
 }
 
+#schemaCodeContent:hover {
+  background-color: darkgrey;
+}
+
 ul.nav a:hover {
   background-color: lightgrey !important;
 }

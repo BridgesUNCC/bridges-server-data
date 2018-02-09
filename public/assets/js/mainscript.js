@@ -47,24 +47,3 @@ $(document).on('scroll', function() {
     opacity: op
   });
 });
-
-/* Get sample data (first element from endpoint)*/
-$('.dataExampleButton').click(function() {
-
-  var dataset = this.dataset.dataset;
-
-  // set up 'loading' indicator
-  $(this).text('Loading...');
-
-  $.ajax({
-    url: this.dataset.url + '?limit=1',
-    context: this,
-    success: function(data){
-      // remove 'loading' indicator
-      $(this).text('See Example Data');
-
-      // add json data to the code snippet window
-      $('#'+dataset+'Snippet').show().animate({'max-height': '400px'}).text(JSON.stringify(data.data[0], null, 4));
-    }
-  });
-});

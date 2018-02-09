@@ -132,3 +132,25 @@ exports.titles = function(req, res) {
     });
   });
 };
+
+exports.findOne = function(req, res) {
+  Shakespeare.count().exec(function (err, count) {
+
+    // Get a random entry
+    var random = Math.floor(Math.random() * count);
+
+    Shakespeare.findOne({},{
+      '_id': 0,
+      'title': 1,
+      'type': 1,
+      'text': 1
+    })
+    .skip(random)
+    .exec(function(err, shakespeare) {
+      if(err) { return handleError(res, err); }
+
+      // return the shakespeare data
+      return res.status(200).json(shakespeare);
+    });
+  });
+};

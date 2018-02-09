@@ -50,3 +50,23 @@ exports.index = function(req, res) {
     });
   });
 };
+
+exports.findOne = function(req, res) {
+  Crime.count().exec(function (err, count) {
+
+    // Get a random entry
+    var random = Math.floor(Math.random() * count);
+
+    Crime.findOne({},{
+      '_id': 0,
+      '__v': 0
+    })
+    .skip(random)
+    .exec(function(err, crime) {
+      if(err) { return handleError(res, err); }
+
+      // return the crime data
+      return res.status(200).json(crime);
+    });
+  });
+};

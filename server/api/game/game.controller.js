@@ -40,3 +40,26 @@ exports.index = function(req, res) {
     });
   });
 };
+
+exports.findOne = function(req, res) {
+  Game.count().exec(function (err, count) {
+
+    // Get a random entry
+    var random = Math.floor(Math.random() * count);
+
+    Game.findOne({},{
+      '_id': 0,
+      'game': 1,
+      'rating': 1,
+      'platform': 1,
+      'genre': 1
+    })
+    .skip(random)
+    .exec(function(err, game) {
+      if(err) { return handleError(res, err); }
+
+      // return the game data
+      return res.status(200).json(game);
+    });
+  });
+};

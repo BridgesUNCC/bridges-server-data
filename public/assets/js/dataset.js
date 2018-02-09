@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  /* Get sample data (passed from nav tab in dataset.pug)*/
+
   $('a[data-toggle="tab"]').on('click', function (e) {
     $("#exampleCodeContent").text('Loading...');
 
@@ -13,5 +13,17 @@ $(document).ready(function() {
         $('#exampleCodeContent').text(data);
       }
     });
+  });
+
+  $("#schemaCodeContent").on('click', function() {
+    // $(this).text('Loading...');
+    $.ajax({
+      url: $(this).attr("data-url") + "/one?limit=1",
+      context: this,
+      success: function(data){
+        $('#schemaCodeContent').text(JSON.stringify(data, undefined, 2));
+      }
+    });
+
   });
 });
