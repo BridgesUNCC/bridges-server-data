@@ -9,8 +9,21 @@
   {
     "dataset": "book",
     "endpoint": "/api/books",
-    "description": "Metadata from the top 1000 books (by download) from Project Gutenberg",
-    "reference": "",
+    "description": "Metadata from the top 1000 books (by download) from Project Gutenberg. This dataset is adapted from the Classics CSV Library, part of the CORGIS Dataset Project at Virginia Tech.",
+    "references": [
+      {
+        "name": "Project Gutenberg",
+        "link": "https://www.gutenberg.org/ebooks/search/?sort_order=downloads"
+      },
+      {
+        "name": "CORGIS Classics",
+        "link": "https://think.cs.vt.edu/corgis/csv/classics/classics.html"
+      },
+      {
+        "name": "CORGIS Datasets Project",
+        "link": "https://think.cs.vt.edu/corgis/"
+      }
+    ],
     "size": "387 KB",
     "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/books/booksSnippet.java"}]
   },
@@ -18,7 +31,7 @@
     "dataset": "shakespeare",
     "endpoint": "/api/shakespeare",
     "description": "The entire works of Shakespeare",
-    "reference": "",
+    "references": [],
     "size": "5 MB",
     "examples": []
   },
@@ -26,7 +39,7 @@
     "dataset": "imdb",
     "endpoint": "/api/imdb",
     "description": "Curated actor/movie pairs from IMDB",
-    "reference": "",
+    "references": [],
     "size": "120 KB",
     "examples": []
   },
@@ -34,7 +47,7 @@
     "dataset": "cancer",
     "endpoint": "/api/cancer",
     "description": "Cancer incidence and mortality rates",
-    "reference": "",
+    "references": [],
     "size": "6.9 MB",
     "examples": []
   },
@@ -42,7 +55,7 @@
     "dataset": "crime",
     "endpoint": "/api/crime",
     "description": "Homicide rates and proportions in US states from 1986 to 2015",
-    "reference": "",
+    "references": [],
     "size": "325 KB",
     "examples": []
   }

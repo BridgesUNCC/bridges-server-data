@@ -1,1 +1,50 @@
-h1 HI
+extends layout
+
+block content
+  link(rel='stylesheet', href='/assets/css/dataset.css')
+  script(src='/assets/js/dataset.js')
+
+  div.container-flex
+    div.jumbotron
+
+      h1= "- " + dataset.dataset + " dataset -"
+
+      div.description= dataset.description
+
+      div.links.col-md-5.text-left
+          p Links
+          hr
+          div.url API endpoint:
+            a(href=dataset.endpoint target="_blank")   #{dataset.endpoint}
+
+          div.download Download a copy:
+            a(href=dataset.endpoint download=dataset.dataset)  #{dataset.size}
+
+      -if(dataset.references.length > 0)
+        div.references.col-md-5.col-md-offset-2.text-right
+          p References
+          hr
+          each ref, index in dataset.references
+            div.reference
+              a(href=ref.link target="_blank") #{ref.name}
+
+    -if(dataset.examples.length > 0)
+      div.examples.col-md-12
+        div.example
+          h2 BRIDGES Code
+          p Make sure you have the relevant BRIDGES package installed in your IDE. For setup info, check out the #[a(href="http://bridgesuncc.github.io/", target="_blank") BRIDGES main site].
+
+        ul.nav.nav-tabs#codeTab(role="tablist")
+          each ex, index in dataset.examples
+            li.nav-item(class=(index == 0 ? 'active' : ''))
+              a.nav-link(
+                id=ex.lang+"-tab"
+                data-toggle="tab"
+                role="tab"
+                href="#exampleCodeContent"
+                data-link=ex.link
+                aria-controls=ex.lang+"-tab"
+              ) #{ex.lang}
+
+        pre#exampleCodeContent
+          p See a BRIDGES code snippet for this dataset

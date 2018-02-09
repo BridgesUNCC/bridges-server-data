@@ -15,17 +15,4 @@ div#current_datasets.row.row-centered.col-md-10.col-md-offset-1
         div.download Download a copy:
           a(href=dataset.endpoint download=dataset.dataset)  #{dataset.size}
 
-        div.references
-          each ref, index in dataset.references
-            div.reference= ref
-
-        div.examples
-          -if(dataset.examples.length > 0)
-
-            div.example BRIDGES Code Stubs:
-              each ex, index in dataset.examples
-                  p
-                    a(href=ex.link target="_blank") #{ex.lang}
-
-
-        a.btn.btn-primary(href="api/datasets/" + dataset.dataset) more details...
+        a.btn.btn-primary(href="/api/datasets/" + dataset.dataset) more details...

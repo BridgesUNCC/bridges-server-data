@@ -68,24 +68,3 @@ $('.dataExampleButton').click(function() {
     }
   });
 });
-
-/* Get sample data (first element from endpoint)*/
-$('.dataAssignmentExample').click(function() {
-
-  var dataset = this.dataset.dataset;
-
-  // set up 'loading' indicator
-  $(this).text('Loading...');
-
-  $.ajax({
-    url: 'https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/' + this.dataset.url,
-    context: this,
-    success: function(data){
-      // remove 'loading' indicator
-      $(this).text('See Example Assignment');
-
-      // add json data to the code snippet window
-      $('#'+dataset+'Snippet').show().animate({'max-height': '400px', 'width': '80%'}).text(data);
-    }
-  });
-});
