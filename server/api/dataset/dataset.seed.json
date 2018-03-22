@@ -31,7 +31,8 @@
       }
     ],
     "size": "387 KB",
-    "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/books/booksSnippet.java"}]
+    "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/books/booksSnippet.java"},
+    {"lang": "C++", "link": "https://raw.githubusercontent.com/Squeetus/BridgesDataSnippets/master/books/booksSnippet.cpp"}]
   },
   {
     "dataset": "shakespeare",
@@ -60,6 +61,17 @@
     }],
     "size": "120 KB",
     "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/imdb/imdbSnippet.java"}]
+  },
+  {
+    "dataset": "imdb2",
+    "endpoint": "/api/imdb2",
+    "description": "Curated IMDB data with actor, movie, rating, and genre(s)",
+    "references": [{
+      "name": "IMDB",
+      "link": "http://www.imdb.com/"
+    }],
+    "size": "60 KB",
+    "examples": []
   },
   {
     "dataset": "cancer",
