@@ -17,8 +17,17 @@ block content
       div.links.col-md-5.text-left
           p Links
           hr
-          div.url API endpoint:
-            a(href=dataset.endpoint target="_blank")   #{dataset.endpoint}
+          -if(dataset.endpoints.length > 0)
+            div.url API endpoints: <br>
+              each url in dataset.endpoints
+                a(href=url target="_blank")   #{url}
+          -else
+            div.url API endpoint:
+              a(href=dataset.endpoint target="_blank")   #{dataset.endpoint}
+          -if(dataset.query_variables.length > 0)
+            div.url Query variables: <br>
+              each qv in dataset.query_variables
+                a(href=dataset.endpoint + qv target="_blank") #{qv}
 
           div.download Download a copy:
             a(href=dataset.endpoint download=dataset.dataset)  #{dataset.size}

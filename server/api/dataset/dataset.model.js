@@ -18,7 +18,9 @@ var DatasetSchema = new Schema({
   'description': String,
   'size': String,
   'references': [],
-  'examples': []
+  'examples': [],
+  'endpoints': [],
+  'query_variables': []
 });
 
 module.exports = {'model': mongoose.model('Dataset', DatasetSchema)};

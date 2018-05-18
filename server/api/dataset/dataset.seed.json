@@ -49,7 +49,9 @@
       }
     ],
     "size": "5 MB",
-    "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/shakespeare/shakespeareSnippet.java"}]
+    "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/shakespeare/shakespeareSnippet.java"}],
+    "endpoints": ["/api/shakespeare", "/api/shakespeare/plays", "/api/shakespeare/poems"],
+    "query_variables": ["?format=simple"]
   },
   {
     "dataset": "imdb",
