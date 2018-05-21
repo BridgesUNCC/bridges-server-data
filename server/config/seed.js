@@ -12,6 +12,7 @@ var seeds = {
   'tests': true,
   'games': false,
   'books': false,
+  'lyrics': true,
   'shakespeare': false,
   'imdb': false,
   'imdb2': false,
@@ -23,6 +24,7 @@ var seeds = {
 var Dataset = require('../api/dataset/dataset.model').model;
 var Test = require('../api/test/test.model');
 var Game = require('../api/game/game.model').model;
+var Lyrics = require('../api/lyrics/lyrics.model').model;
 var Book = require('../api/book/book.model').model;
 var Shakespeare = require('../api/shakespeare/shakespeare.model').model;
 var IMDB = require('../api/imdb/imdb.model').model;
@@ -34,6 +36,7 @@ var Crime = require('../api/crime/crime.model').model;
 var DatasetSeed = require('../api/dataset/dataset.seed.json');
 var testSeed = require('../api/test/test.seed.json');
 var gameSeed = require('../api/game/game.seed.json');
+var lyricsSeed = require('../api/lyrics/lyrics.seed.json');
 var bookSeed = require('../api/book/classicsParser.js');
 var IMDBSeed = require('../api/imdb/imdbParser.js');
 var IMDB2Seed = require('../api/imdb2/imdb2.json');
@@ -60,6 +63,14 @@ if(seeds.games) {
   // Insert all games (17534 records)
   Game.find({}).remove(function() {
     Game.create(gameSeed);
+  });
+}
+
+if(seeds.lyrics) {
+  console.log('Seeding lyrics');
+  // Insert all lyrics (?? records)
+  Lyrics.find({}).remove(function() {
+    Lyrics.create(gameSeed);
   });
 }
 
