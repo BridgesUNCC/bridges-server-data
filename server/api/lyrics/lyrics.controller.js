@@ -17,9 +17,9 @@ function handleError(res, err) {
 exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
-                +req.query.limit <= 1) ?
+                +req.query.limit <= 5) ?
         req.query.limit // use valid limit
-        : 1;        // use actual number
+        : 5;        // use actual number
 
   // Query for <limit> lyrics
   Lyrics.find({},{

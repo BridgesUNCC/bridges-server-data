@@ -21,11 +21,11 @@ describe('GET /api/lyrics', function() {
   });
 });
 
-describe('GET /api/lyrics?limit=10', function() {
+describe('GET /api/lyrics?limit=5', function() {
 
-  it('should respond with JSON object, and contain an object and an Array of 10 objects', function(done) {
+  it('should respond with JSON object, and contain an object and an Array of 5 objects', function(done) {
     request(app)
-      .get('/api/lyrics?limit=10')
+      .get('/api/lyrics?limit=5')
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {
@@ -33,7 +33,7 @@ describe('GET /api/lyrics?limit=10', function() {
         res.body.should.be.instanceof(Object);
         res.body.structure.should.be.instanceOf(Object);
         res.body.data.should.be.instanceOf(Array);
-        res.body.data.length.should.be.equal(10);
+        res.body.data.length.should.be.equal(5);
         done();
       });
   });
@@ -41,7 +41,7 @@ describe('GET /api/lyrics?limit=10', function() {
 
 describe('GET /api/lyrics?limit=something', function() {
 
-  it('should respond with JSON object, and contain an object and an Array of 17534 objects', function(done) {
+  it('should respond with JSON object, and contain an object and an Array of 5 objects', function(done) {
     request(app)
       .get('/api/lyrics?limit=something')
       .expect(200)
@@ -51,7 +51,7 @@ describe('GET /api/lyrics?limit=something', function() {
         res.body.should.be.instanceof(Object);
         res.body.structure.should.be.instanceOf(Object);
         res.body.data.should.be.instanceOf(Array);
-        res.body.data.length.should.be.equal(17534);
+        res.body.data.length.should.be.equal(5);
         done();
       });
   });
@@ -59,7 +59,7 @@ describe('GET /api/lyrics?limit=something', function() {
 
 describe('GET /api/lyrics?limit=-1', function() {
 
-  it('should respond with JSON object, and contain an object and an Array of 17534 objects', function(done) {
+  it('should respond with JSON object, and contain an object and an Array of 5 objects', function(done) {
     request(app)
       .get('/api/lyrics?limit=-1')
       .expect(200)
@@ -69,7 +69,7 @@ describe('GET /api/lyrics?limit=-1', function() {
         res.body.should.be.instanceof(Object);
         res.body.structure.should.be.instanceOf(Object);
         res.body.data.should.be.instanceOf(Array);
-        res.body.data.length.should.be.equal(17534);
+        res.body.data.length.should.be.equal(5);
         done();
       });
   });
