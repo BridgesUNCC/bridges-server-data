@@ -70,7 +70,7 @@ if(seeds.lyrics) {
   console.log('Seeding lyrics');
   // Insert all lyrics (?? records)
   Lyrics.find({}).remove(function() {
-    Lyrics.create(gameSeed);
+    Lyrics.create(lyricsSeed);
   });
 }
 

@@ -13,6 +13,14 @@
     "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/games/gamesSnippet.java"}]
   },
   {
+      "dataset": "lyrics",
+      "endpoint": "/api/lyrics",
+      "description": "This dataset contains songs and their lyrics.",
+      "references": [],
+      "size": "??",
+      "examples": []
+  },
+  {
     "dataset": "book",
     "endpoint": "/api/books",
     "description": "Metadata from the top 1000 books (by download) from Project Gutenberg. This dataset is adapted from the Classics CSV Library, part of the CORGIS Dataset Project at Virginia Tech.",
