@@ -13,8 +13,8 @@
     "examples": [{"lang": "Java", "link": "https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/games/gamesSnippet.java"}]
   },
   {
-      "dataset": "lyrics",
-      "endpoint": "/api/lyrics",
+      "dataset": "song",
+      "endpoint": "/api/songs",
       "description": "This dataset contains songs and their lyrics.",
       "references": [],
       "size": "??",

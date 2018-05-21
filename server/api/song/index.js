@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./lyrics.controller');
+var controller = require('./song.controller');
 
 var router = express.Router();
 

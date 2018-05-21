@@ -12,7 +12,7 @@ var structure = {
   'genre': 'Array of String'
 };
 
-var LyricsSchema = new Schema({
+var SongSchema = new Schema({
   artist: String,
   song: String,
   album: String,
@@ -21,4 +21,4 @@ var LyricsSchema = new Schema({
   genre: []
 });
 
-module.exports = {'model': mongoose.model('Lyrics', LyricsSchema), 'structure': structure};
+module.exports = {'model': mongoose.model('Lyrics', SongSchema), 'structure': structure};
