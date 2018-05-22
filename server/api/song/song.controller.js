@@ -46,7 +46,7 @@ exports.index = function(req, res) {
 function queryGeniusAPI(req, res, songName, artist) {
   var responseData = '';
   const scriptPath = __dirname + '/GeniusSearch.py';
-  const pythonScript = spawn('python', [scriptPath, "T_ePT5OsxaBKkD_5fRF1dOHaj2RBAmNdyzAtmVnatlkLZJonP_mBAcIopB_MyKqo", songName, artist]);
+  const pythonScript = spawn('python', [scriptPath, process.env.GENIUS_API, songName, artist]);
   pythonScript.stdout.on('data', (buf) => {
       responseData = buf.toString();
   });
