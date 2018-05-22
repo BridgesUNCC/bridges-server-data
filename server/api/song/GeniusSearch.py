@@ -17,7 +17,12 @@ def get_genius_api_path(search_term, artist=None):
         data = {'q': search_term}
 
     response = requests.get(url=search_url, params=data, headers=headers)
+
     json = response.json()
+
+    if json.get('error') is not None:
+        sys.stderr.write("The API key may be invalid, contact BRIDGES admins")
+        sys.exit(1)
 
     if artist is not None:
         for hit in json["response"]["hits"]:
@@ -35,7 +40,7 @@ def get_genius_api_path(search_term, artist=None):
 
         sys.stderr.write("No results matching the term '{}'".format(search_term))
         sys.exit(1)
-        
+
 
 def get_response_json(api_path):
     song_url = base_url + api_path

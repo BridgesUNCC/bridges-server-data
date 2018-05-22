@@ -51,7 +51,8 @@ function queryGeniusAPI(req, res, songName, artist) {
       responseData = buf.toString();
   });
   pythonScript.stderr.on('data', (myErr) => {
-      handleError(res, myErr.toString());
+      pythonScript.stdin.pause();
+      return handleError(res, myErr.toString());
   });
   pythonScript.on('close', (code) => {
     // console.log(
@@ -60,7 +61,7 @@ function queryGeniusAPI(req, res, songName, artist) {
       return res.status(200).json({'data': responseData});
     }
     else {
-      return res.status(404);
+      return handleError(res, 'Unable to process the request');
     }
   });
 }
