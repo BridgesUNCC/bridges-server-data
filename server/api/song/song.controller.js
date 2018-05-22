@@ -18,9 +18,9 @@ function handleError(res, err) {
 exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
-                +req.query.limit <= 5) ?
+                +req.query.limit <= 1000) ?
         req.query.limit // use valid limit
-        : 5;        // use actual number
+        : 1000;        // use max
 
   // Query for <limit> songs
   Song.find({},{
@@ -43,10 +43,29 @@ exports.index = function(req, res) {
   });
 };
 
+function saveNewSong(data) {
+  var newSong = JSON.parse(data);
+  Song.findOne({
+    song: newSong.song,
+    artist: newSong.artist
+  }).exec(function(err, song) {
+      if(err) { console.log(err); }
+      if(song) {
+        console.log('Song already exists in database');
+      } else {
+        Song.create(newSong, function (err, song) {
+          if (err) { console.log(err); }
+          console.log('saved!', song.song);
+        });
+      }
+  });
+}
+
 function queryGeniusAPI(req, res, songName, artist) {
   var responseData = '';
   const scriptPath = __dirname + '/GeniusSearch.py';
   const pythonScript = spawn('python', [scriptPath, process.env.GENIUS_API, songName, artist]);
+
   pythonScript.stdout.on('data', (buf) => {
       responseData = buf.toString();
   });
@@ -58,6 +77,7 @@ function queryGeniusAPI(req, res, songName, artist) {
     // console.log(
     //   `child process terminated due to receipt of code ${code}`);
     if(code === 0 && responseData.length > 0) {
+      saveNewSong(responseData);
       return res.status(200).json({'data': responseData});
     }
     else {

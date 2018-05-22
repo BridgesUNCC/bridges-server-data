@@ -88,6 +88,11 @@ resp_json = get_response_json(get_genius_api_path(search_term, artist))
 song_json = get_song_json(resp_json)
 
 json_data = {}
+
+song = song_json.get('title')
+if song is not None:
+    json_data['song'] = song
+
 release_date = get_release_date(song_json)
 if release_date is not None:
     json_data['release_date'] = release_date
