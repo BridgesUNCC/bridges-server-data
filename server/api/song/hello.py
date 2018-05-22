@@ -1,6 +1,6 @@
 import sys
 import requests
-from bs4 import BeautifulSoup
+from beautifulsoup4 import BeautifulSoup
 
 print("Hello, World!")
 

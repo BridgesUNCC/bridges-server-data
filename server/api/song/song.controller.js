@@ -47,6 +47,8 @@ exports.index = function(req, res) {
 exports.find = function(req, res) {
   var song = req.params.songname;
 
+  var responseData = '';
+
   Song.findOne({
     'song': song
   })
@@ -55,12 +57,11 @@ exports.find = function(req, res) {
 
     if(song === null) {
       const scriptPath = __dirname + '/hello.py';
-      const pythonScript = spawn('python', [scriptPath, process.APIKEY]);
+      const pythonScript = spawn('python', [scriptPath, process.env.GENIUS_API, 'SongTitle']);
       pythonScript.stdout.on('data', (buf) => {
-          var data = buf.toString();
+          responseData += buf.toString();
           // pythonScript.kill('SIGTERM');
           // pythonScript.stdin.pause();
-          return res.status(200).json({'data': data});
       });
       pythonScript.stderr.on('data', (myErr) => {
           // Listen to sys.stderr
@@ -69,7 +70,12 @@ exports.find = function(req, res) {
       pythonScript.on('close', (code) => {
         console.log(
           `child process terminated due to receipt of code ${code}`);
-        return res.status(404);
+        if(code === 1) {
+          return res.status(200).json({'data': responseData});
+        }
+        else {
+          return res.status(404);
+        }
       });
 
       // Send SIGTERM to process
