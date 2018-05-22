@@ -22,14 +22,6 @@ module.exports = function(app) {
   app.use('/api/cancer', require('./api/cancer'));
   app.use('/api/crime', require('./api/crime'));
 
-
-  // app.use('/snippets/:dataset', function(req, res) {
-  //   // make sure the dataset is valid
-  //   if(req.params.dataset && datasets[req.params.dataset]) {
-  //     res.redirect('https://raw.githubusercontent.com/UNCCBridges/BridgesDataSnippets/master/' + datasets[req.params.dataset].snippet);
-  //   }
-  // });
-
   app.get('*', function(req, res, next) {
     datasets.getDatasets(function(err, data){
       req.datasets = data;

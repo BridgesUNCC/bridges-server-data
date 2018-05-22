@@ -8,6 +8,7 @@
 var SongModel = require('./song.model');
 var Song = SongModel.model;
 var structure = SongModel.structure;
+const { spawn } = require('child_process');
 
 function handleError(res, err) {
   return res.status(500).send(err);
@@ -40,6 +41,45 @@ exports.index = function(req, res) {
       'structure': structure,
       'data': songs
     });
+  });
+};
+
+exports.find = function(req, res) {
+  var song = req.params.songname;
+
+  Song.findOne({
+    'song': song
+  })
+  .exec(function(err, song) {
+    if(err) { return handleError(res, err); }
+
+    if(song === null) {
+      const scriptPath = __dirname + '/hello.py';
+      const pythonScript = spawn('python', [scriptPath, process.APIKEY]);
+      pythonScript.stdout.on('data', (buf) => {
+          var data = buf.toString();
+          // pythonScript.kill('SIGTERM');
+          // pythonScript.stdin.pause();
+          return res.status(200).json({'data': data});
+      });
+      pythonScript.stderr.on('data', (myErr) => {
+          // Listen to sys.stderr
+          console.log('Error in python script: ', myErr.toString());
+      });
+      pythonScript.on('close', (code) => {
+        console.log(
+          `child process terminated due to receipt of code ${code}`);
+        return res.status(404);
+      });
+
+      // Send SIGTERM to process
+      // pythonScript.kill('SIGTERM');
+
+      // return res.status(200).json({});
+    } else {
+    // return the song data
+      return res.status(200).json(song);
+    }
   });
 };
 
