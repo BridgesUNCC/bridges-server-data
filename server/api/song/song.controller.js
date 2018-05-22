@@ -78,7 +78,7 @@ function queryGeniusAPI(req, res, songName, artist) {
     //   `child process terminated due to receipt of code ${code}`);
     if(code === 0 && responseData.length > 0) {
       saveNewSong(responseData);
-      return res.status(200).json({'data': responseData});
+      return res.status(200).json(responseData);
     }
     else {
       return handleError(res, 'Unable to process the request');
