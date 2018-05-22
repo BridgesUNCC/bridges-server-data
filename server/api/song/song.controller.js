@@ -63,6 +63,7 @@ function saveNewSong(data) {
 
 function queryGeniusAPI(req, res, songName, artist) {
   var responseData = '';
+  var error = '';
   const scriptPath = __dirname + '/GeniusSearch.py';
   const pythonScript = spawn('python', [scriptPath, process.env.GENIUS_API, songName, artist]);
 
@@ -71,17 +72,21 @@ function queryGeniusAPI(req, res, songName, artist) {
   });
   pythonScript.stderr.on('data', (myErr) => {
       pythonScript.stdin.pause();
-      return handleError(res, myErr.toString());
+      error = myErr.toString();
   });
   pythonScript.on('close', (code) => {
     // console.log(
     //   `child process terminated due to receipt of code ${code}`);
-    if(code === 0 && responseData.length > 0) {
+    if(code === 0 && responseData.length > 0 && error.length === 0) {
       saveNewSong(responseData);
       return res.status(200).json(responseData);
     }
     else {
-      return handleError(res, 'Unable to process the request');
+      if(error.length > 0) {
+        return handleError(res, error);
+      } else {
+        return handleError(res, 'Unable to complete the request at this time.');
+      }
     }
   });
 }
