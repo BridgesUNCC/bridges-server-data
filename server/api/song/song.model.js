@@ -8,8 +8,7 @@ var structure = {
   'song': 'String',
   'album': 'String',
   'lyrics': 'String',
-  'year': 'Number',
-  'genre': 'Array of String'
+  'release_date': 'String'
 };
 
 var SongSchema = new Schema({
@@ -17,8 +16,7 @@ var SongSchema = new Schema({
   song: String,
   album: String,
   lyrics: String,
-  year: Number,
-  genre: []
+  release_date: String
 });
 
 module.exports = {'model': mongoose.model('Lyrics', SongSchema), 'structure': structure};

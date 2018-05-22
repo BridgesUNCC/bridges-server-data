@@ -29,8 +29,7 @@ exports.index = function(req, res) {
     'song': 1,
     'album': 1,
     'lyrics': 1,
-    'year': 1,
-    'genre': 1
+    'release_date': 1
   })
   .limit(limit)
   .lean().exec(function (err, songs) {
@@ -44,47 +43,45 @@ exports.index = function(req, res) {
   });
 };
 
-exports.find = function(req, res) {
-  var song = req.params.songname;
-
+function queryGeniusAPI(req, res, songName, artist) {
   var responseData = '';
+  const scriptPath = __dirname + '/GeniusSearch.py';
+  const pythonScript = spawn('python', [scriptPath, "T_ePT5OsxaBKkD_5fRF1dOHaj2RBAmNdyzAtmVnatlkLZJonP_mBAcIopB_MyKqo", songName, artist]);
+  pythonScript.stdout.on('data', (buf) => {
+      responseData = buf.toString();
+  });
+  pythonScript.stderr.on('data', (myErr) => {
+      handleError(res, myErr.toString());
+  });
+  pythonScript.on('close', (code) => {
+    // console.log(
+    //   `child process terminated due to receipt of code ${code}`);
+    if(code === 0 && responseData.length > 0) {
+      return res.status(200).json({'data': responseData});
+    }
+    else {
+      return res.status(404);
+    }
+  });
+}
 
-  Song.findOne({
-    'song': song
-  })
+exports.find = function(req, res) {
+  var songName = req.params.songname;
+  var artist = req.query.artistName || '';
+  var query = {
+    'song': songName
+  };
+  // add artist to search query if provided
+  if(artist.length > 0) { query.artist = artist; }
+
+  Song.findOne(query)
   .exec(function(err, song) {
     if(err) { return handleError(res, err); }
 
-    if(song === null) {
-      const scriptPath = __dirname + '/hello.py';
-      const pythonScript = spawn('python', [scriptPath, process.env.GENIUS_API, 'SongTitle']);
-      pythonScript.stdout.on('data', (buf) => {
-          responseData += buf.toString();
-          // pythonScript.kill('SIGTERM');
-          // pythonScript.stdin.pause();
-      });
-      pythonScript.stderr.on('data', (myErr) => {
-          // Listen to sys.stderr
-          console.log('Error in python script: ', myErr.toString());
-      });
-      pythonScript.on('close', (code) => {
-        console.log(
-          `child process terminated due to receipt of code ${code}`);
-        if(code === 1) {
-          return res.status(200).json({'data': responseData});
-        }
-        else {
-          return res.status(404);
-        }
-      });
-
-      // Send SIGTERM to process
-      // pythonScript.kill('SIGTERM');
-
-      // return res.status(200).json({});
-    } else {
-    // return the song data
+    if(song !== null) {
       return res.status(200).json(song);
+    } else {
+      return queryGeniusAPI(req, res, songName, artist);
     }
   });
 };
@@ -101,8 +98,7 @@ exports.findOne = function(req, res) {
       'song': 1,
       'album': 1,
       'lyrics': 1,
-      'year': 1,
-      'genre': 1
+      'release_date': 1
     })
     .skip(random)
     .exec(function(err, songs) {
