@@ -79,7 +79,7 @@ function queryGeniusAPI(req, res, songName, artist) {
     //   `child process terminated due to receipt of code ${code}`);
     if(code === 0 && responseData.length > 0 && error.length === 0) {
       saveNewSong(responseData);
-      return res.status(200).json(responseData);
+      return res.status(200).json(JSON.parse(responseData));
     }
     else {
       if(error.length > 0) {
