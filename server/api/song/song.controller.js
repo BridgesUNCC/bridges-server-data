@@ -95,10 +95,10 @@ exports.find = function(req, res) {
   var songName = req.params.songname;
   var artist = req.query.artistName || '';
   var query = {
-    'song': songName
+    'song_lower': songName.toLowerCase()
   };
   // add artist to search query if provided
-  if(artist.length > 0) { query.artist = artist; }
+  if(artist.length > 0) { query.artist_lower = artist.toLowerCase(); }
 
   Song.findOne(query)
   .exec(function(err, song) {
