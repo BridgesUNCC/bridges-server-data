@@ -29,7 +29,7 @@ def get_genius_api_path(search_term, artist=None):
             if hit["result"]["primary_artist"]["name"].lower() == artist.lower():
                 return hit["result"]["api_path"]
 
-        sys.stderr.write("No results matching the terms '{} {}'".format(search_term, artist))
+        sys.stderr.write("No results matching the terms 'song': '{}', 'artist': ' {}'".format(search_term, artist))
         sys.exit(1)
     else:
         hits = json.get('response').get('hits')
@@ -38,7 +38,7 @@ def get_genius_api_path(search_term, artist=None):
             if top is not None:
                 return top.get('result').get('api_path')
 
-        sys.stderr.write("No results matching the term '{}'".format(search_term))
+        sys.stderr.write("No results matching the term 'song': '{}'".format(search_term))
         sys.exit(1)
 
 
