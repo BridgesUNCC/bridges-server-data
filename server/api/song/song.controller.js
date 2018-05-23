@@ -55,7 +55,7 @@ function saveNewSong(data) {
       } else {
         Song.create(newSong, function (err, song) {
           if (err) { console.log(err); }
-          console.log('saved!', song.song);
+          console.log('saved Song:', song.song);
         });
       }
   });

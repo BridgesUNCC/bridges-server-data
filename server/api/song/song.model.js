@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    SongModel;
 
 var structure = {
   'artist': 'String',
@@ -34,4 +35,16 @@ SongSchema.pre('save', function(next) {
   next();
 });
 
-module.exports = {'model': mongoose.model('Lyrics', SongSchema), 'structure': structure};
+// create indexes on song name and (song name + artist) for fast searching
+SongSchema.index( { song_lower: -1 } );
+SongSchema.index( { song_lower: -1, artist_lower: -1 } );
+
+
+SongModel = mongoose.model('Song', SongSchema);
+
+SongModel.on('index', function(err) {
+  if(err) console.log(err);
+  console.log('created index on SongModel');
+});
+
+module.exports = {'model': SongModel, 'structure': structure};
