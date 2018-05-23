@@ -12,7 +12,7 @@ var seeds = {
   'tests': true,
   'games': false,
   'books': false,
-  'song': true,
+  'song': false,
   'shakespeare': false,
   'imdb': false,
   'imdb2': false,
