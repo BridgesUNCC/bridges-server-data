@@ -42,6 +42,8 @@ require('./routes')(app);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 
+console.log('ey');
+
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));

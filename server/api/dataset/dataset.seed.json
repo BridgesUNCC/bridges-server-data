@@ -98,5 +98,22 @@
     "references": [],
     "size": "325 KB",
     "examples": []
+  },
+  {
+    "dataset": "cities",
+    "endpoint": "/api/cities",
+    "description": "Annual Estimates of the Resident Population for Incorporated Places of 50,000 or more from 2010 to 2017. Source: U.S. Census Bureau, Population Division, 2018. Areas are included if they exceed the stated threshold at any point in the time series.",
+    "references": [
+      {
+        "name": "Original dataset source",
+        "link": "https://www.census.gov/data/tables/2017/demo/popest/total-cities-and-towns.html#tables"
+      },
+      {
+        "name": "Population Estimates Methodology",
+        "link": "http://www.census.gov/programs-surveys/popest/technical-documentation/methodology.html"
+      }
+    ],
+    "size": "??",
+    "examples": []
   }
 ]

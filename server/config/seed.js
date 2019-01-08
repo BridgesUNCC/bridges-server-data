@@ -17,7 +17,8 @@ var seeds = {
   'imdb': false,
   'imdb2': false,
   'cancer': false,
-  'crime': false
+  'crime': false,
+  'cities': true
 };
 
 // Insert seed models below
@@ -31,6 +32,7 @@ var IMDB = require('../api/imdb/imdb.model').model;
 var IMDB2 = require('../api/imdb2/imdb2.model').model;
 var Cancer = require('../api/cancer/cancer.model').model;
 var Crime = require('../api/crime/crime.model').model;
+var Cities = require('../api/cities/cities.model').model;
 
 // // Insert seed data below
 var DatasetSeed = require('../api/dataset/dataset.seed.json');
@@ -42,6 +44,7 @@ var IMDBSeed = require('../api/imdb/imdbParser.js');
 var IMDB2Seed = require('../api/imdb2/imdb2.json');
 var CancerSeed = require('../api/cancer/cancer.json');
 var CrimeSeed = require('../api/crime/crimeParser.js');
+var CitiesSeed = require('../api/cities/US_cities.json');
 
 // Insert seed inserts below
 if(seeds.datasets) {
@@ -141,5 +144,13 @@ if(seeds.crime) {
     Crime.find({}).remove(function() {
         Crime.create(data);
     });
+  });
+}
+
+if(seeds.cities) {
+  console.log('Seeding cities');
+  // Insert all cities data
+  Cities.find({}).remove(function() {
+      Cities.create(CitiesSeed);
   });
 }

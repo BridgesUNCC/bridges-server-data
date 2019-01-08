@@ -21,6 +21,7 @@ module.exports = function(app) {
   app.use('/api/imdb2', require('./api/imdb2'));
   app.use('/api/cancer', require('./api/cancer'));
   app.use('/api/crime', require('./api/crime'));
+  app.use('/api/cities', require('./api/cities'));
 
   app.get('*', function(req, res, next) {
     datasets.getDatasets(function(err, data){
