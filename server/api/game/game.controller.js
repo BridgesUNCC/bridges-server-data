@@ -18,7 +18,7 @@ exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
                 +req.query.limit <= 17534) ?
-        req.query.limit // use valid limit
+        +req.query.limit // use valid limit
         : 17534;        // use actual number
 
   // Query for <limit> games

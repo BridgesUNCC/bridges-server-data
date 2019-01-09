@@ -31,7 +31,7 @@ exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
                 +req.query.limit <= 484) ?
-        req.query.limit // use valid limit
+        +req.query.limit // use valid limit
         : 484;        // use actual number
 
   // Query for <limit> actor movie pairs

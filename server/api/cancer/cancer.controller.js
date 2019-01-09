@@ -32,7 +32,7 @@ exports.index = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
                 +req.query.limit <= 22140) ?
-        req.query.limit // use valid limit
+        +req.query.limit // use valid limit
         : 22140;        // use actual number
 
   // Query for <limit> cancer records
@@ -57,7 +57,7 @@ exports.withLoc = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
                 +req.query.limit <= 22140) ?
-        req.query.limit // use valid limit
+        +req.query.limit // use valid limit
         : 22140;        // use actual number
 
   // Query for <limit> cancer records
@@ -85,7 +85,7 @@ exports.stats = function(req, res) {
   var limit = (req.query.limit &&
                 +req.query.limit > 0 &&
                 +req.query.limit <= 22140) ?
-        req.query.limit // use valid limit
+        +req.query.limit // use valid limit
         : 22140;        // use actual number
 
   // Query for <limit> cancer records
