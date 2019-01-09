@@ -49,14 +49,14 @@ var CitiesSeed = require('../api/cities/US_cities.json');
 // Insert seed inserts below
 if(seeds.datasets) {
   console.log('Seeding datasets');
-  Dataset.find({}).remove(function() {
+  Dataset.find({}).deleteMany(function() {
     Dataset.create(DatasetSeed);
   });
 }
 
 if(seeds.tests) {
   console.log('Seeding tests');
-  Test.find({}).remove(function() {
+  Test.find({}).deleteMany(function() {
     Test.create(testSeed);
   });
 }
@@ -64,7 +64,7 @@ if(seeds.tests) {
 if(seeds.games) {
   console.log('Seeding games');
   // Insert all games (17534 records)
-  Game.find({}).remove(function() {
+  Game.find({}).deleteMany(function() {
     Game.create(gameSeed);
   });
 }
@@ -72,7 +72,7 @@ if(seeds.games) {
 if(seeds.song) {
   console.log('Seeding songs');
   // Insert all songs (?? records)
-  Song.find({}).remove(function() {
+  Song.find({}).deleteMany(function() {
     Song.create(songSeed);
   });
 }
@@ -80,7 +80,7 @@ if(seeds.song) {
 if(seeds.books) {
   console.log('Seeding books');
   // Insert all books (1000 records)
-  Book.find({}).remove(function() {
+  Book.find({}).deleteMany(function() {
       Book.create(bookSeed);
   });
 }
@@ -94,7 +94,7 @@ if(seeds.shakespeare) {
       return;
     }
     // Insert all shakespeare
-    Shakespeare.find({}).remove(function() {
+    Shakespeare.find({}).deleteMany(function() {
         Shakespeare.create(data);
     });
   });
@@ -107,7 +107,7 @@ if(seeds.imdb) {
       console.log(err);
       return;
     }
-    IMDB.find({}).remove(function() {
+    IMDB.find({}).deleteMany(function() {
         IMDB.create(data);
     });
   });
@@ -116,14 +116,14 @@ if(seeds.imdb) {
 if(seeds.imdb2) {
   console.log('Seeding imdb2');
   // Insert all actor movie objects (484 records)
-  IMDB2.find({}).remove(function() {
+  IMDB2.find({}).deleteMany(function() {
       IMDB2.create(IMDB2Seed);
   });
 }
 
 if(seeds.cancer) {
   console.log('Seeding cancer', CancerSeed.length);
-  Cancer.find({}).remove(function(err) {
+  Cancer.find({}).deleteMany(function(err) {
     if(err) {
       console.log(err);
       return;
@@ -141,7 +141,7 @@ if(seeds.crime) {
       return;
     }
     // Insert all crime data
-    Crime.find({}).remove(function() {
+    Crime.find({}).deleteMany(function() {
         Crime.create(data);
     });
   });
@@ -150,7 +150,7 @@ if(seeds.crime) {
 if(seeds.cities) {
   console.log('Seeding cities');
   // Insert all cities data
-  Cities.find({}).remove(function() {
+  Cities.find({}).deleteMany(function() {
       Cities.create(CitiesSeed);
   });
 }
