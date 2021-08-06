@@ -1,3 +1,4 @@
+import re
 import sys
 import json
 import requests
@@ -6,7 +7,7 @@ from bs4 import BeautifulSoup
 base_url = 'http://api.genius.com'
 api_token = 'Bearer {}'.format(sys.argv[1])
 headers = {'Authorization': api_token}
-
+debug = False
 
 def get_genius_api_path(search_term, artist=None):
     search_url = '{}/search'.format(base_url)
@@ -20,6 +21,9 @@ def get_genius_api_path(search_term, artist=None):
 
     json = response.json()
 
+    if debug:
+        print (json)
+    
     if json.get('error') is not None:
         sys.stderr.write("The API key may be invalid, contact BRIDGES admins")
         sys.exit(1)
@@ -73,9 +77,20 @@ def lyrics_from_song_json(json):
     path = json.get('path')
     page_url = "http://genius.com{}".format(path)
     page = requests.get(page_url)
+
+
     html = BeautifulSoup(page.text, "html.parser")
+
+    if debug:
+        print (html.prettify())
+    
     [h.extract() for h in html('script')]
-    lyrics = html.find('div', class_="lyrics").get_text()
+
+    lyrics = ""
+
+    for t in html.find_all('div', class_=re.compile("Lyrics__Container")):
+        lyrics += t.get_text("\n")+"\n"
+
     return lyrics
 
 
