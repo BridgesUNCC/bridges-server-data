@@ -29,6 +29,7 @@ You need to install a few npm packages.
 ```
 npm install jit-grunt
 npm install dotenv
+npm install pug
 ```
 
 ### run node
