@@ -40,3 +40,7 @@ grunt serve # alternatively, you can run node directly with node server/app.js
 ```
 
 The server should be running on http://localhost:3001/
+
+### seeding datasets
+
+when you run the server like that, it appears not to seed the data in the mongo server. Change the 'seeds' variable at the top of server/config/seed.js to seed the dataset you work on.
