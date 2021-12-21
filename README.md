@@ -37,3 +37,5 @@ npm install dotenv
 export MONGO_CREDENTIALS='something' # this tricks the server to use the local mongodb install. yes it is weird
 grunt serve # alternatively, you can run node directly with node server/app.js
 ```
+
+The server should be running on http://localhost:3001/
