@@ -35,21 +35,35 @@ exports.index = function(req, res) {
         +req.query.limit // use valid limit
         : 100000;        // use actual number
 
-  //get the query for state and population for filtering
-  var query = req.query.state ? { 'state': req.query.state } : {};
-  query.population = req.query.population ? {$gt: req.query.population} : {$gt: 0}
-  query.elevation = req.query.elevation ? {$gt: req.query.elevation} : {$gt: 0}
-  const minll = req.query.minLatLong ? req.query.minLatLong.split(",") : [-10000, -10000];
-  const maxll = req.query.maxLatLong ? req.query.maxLatLong.split(",") : [100000, 100000];
-  if(req.query.minLatLong && req.query.maxLatLong){
-    query.lat = {$gt: parseFloat(minll[0]), $lt: parseFloat(maxll[0])}
-  }
-  if(req.query.minLatLong && req.query.maxLatLong){
-    query.lon = {$gt: parseFloat(minll[1]), $lt: parseFloat(maxll[1])}
-  }
-  // query.lat = (req.query.minLatLong && req.query.maxLatLong) ? {$gt: parseFloat(minll[0]), $lt: parseFloat(maxll[0])} : {}
-  // query.lon = (req.query.minLatLong && req.query.maxLatLong) ? {$gt: parseFloat(minll[1]), $lt: parseFloat(maxll[1])} : {}
+  let minElevation = (req.query.minElevation) ? req.query.minElevation : 0;
+  let maxElevation = (req.query.maxElevation) ? req.query.maxElevation : Infinity;
 
+  let minPopulation = (req.query.minPopulation) ? req.query.minPopulation : 0;
+  let maxPopulation = (req.query.maxPopulation) ? req.query.maxPopulation : Infinity;
+
+  var minLat = req.query.minLat ? Number(req.query.minLat) : -90;
+  let minLong = (req.query.minLong) ? req.query.minLong : -180;
+  console.log(minLat)
+  let maxLat = req.query.maxLat ? req.query.maxLat : 90;
+  let maxLong = (req.query.maxLong) ? req.query.maxLong : 180;
+
+
+  //get the query for state and population for filtering
+  var query = {};
+  if(req.query.city){
+    query.city = req.query.city;
+  }
+  if(req.query.state){
+    query.state = req.query.state;
+  }
+  if(req.query.timezone){
+    query.timezone = req.query.timezone;
+  }
+  query.population = {$gt: minPopulation, $lt: maxPopulation};
+  query.elevation = {$gt: minElevation, $lt: maxElevation};
+  query.lat = {$gt: minLat, $lt: maxLat};
+  query.lon = {$gt: minLong, $lt: maxLong};
+  
   // Query for <limit> cities
   USCities.find(query,{
     '_id': 0,

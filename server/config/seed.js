@@ -19,7 +19,7 @@ var seeds = {
   'cancer': false,
   'crime': false,
   'cities': false,
-  'us_cities': false
+  'us_cities': true
 };
 
 // Insert seed models below
