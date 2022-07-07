@@ -19,7 +19,8 @@ var seeds = {
   'cancer': false,
   'crime': false,
   'cities': false,
-  'us_cities': true
+  'us_cities': true,
+  'world_cities': false
 };
 
 // Insert seed models below
@@ -35,6 +36,7 @@ var Cancer = require('../api/cancer/cancer.model').model;
 var Crime = require('../api/crime/crime.model').model;
 var Cities = require('../api/cities/cities.model').model;
 var USCities = require('../api/us_cities/us_cities.model').model;
+var WorldCities = require('../api/world_cities/world_cities.model').model;
 
 // // Insert seed data below
 var DatasetSeed = require('../api/dataset/dataset.seed.json');
@@ -48,6 +50,7 @@ var CancerSeed = require('../api/cancer/cancer.json');
 var CrimeSeed = require('../api/crime/crimeParser.js');
 var CitiesSeed = require('../api/cities/US_cities.json');
 var USCitiesSeed = require('../api/us_cities/us_cities.json');
+var WorldCitiesSeed = require('../api/world_cities/world_cities_test.json');
 
 // Insert seed inserts below
 if(seeds.datasets) {
@@ -163,5 +166,13 @@ if(seeds.us_cities) {
   // Insert all cities data
   USCities.find({}).deleteMany(function() {
       USCities.create(USCitiesSeed);
+  });
+}
+
+if(seeds.world_cities) {
+  console.log('Seeding world_cities');
+  // Insert all cities data
+  WorldCities.find({}).deleteMany(function() {
+      WorldCities.create(WorldCitiesSeed);
   });
 }

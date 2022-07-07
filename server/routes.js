@@ -23,6 +23,7 @@ module.exports = function(app) {
   app.use('/api/crime', require('./api/crime'));
   app.use('/api/cities', require('./api/cities'));
   app.use('/api/us_cities', require('./api/us_cities'));
+  app.use('/api/world_cities', require('./api/world_cities'));
 
   app.get('*', function(req, res, next) {
     datasets.getDatasets(function(err, data){
