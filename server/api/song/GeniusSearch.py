@@ -96,8 +96,9 @@ def lyrics_from_song_json(json):
 
 search_term = sys.argv[2]
 artist = None
-if sys.argv[3] is not "":
-    artist = sys.argv[3]
+if len(sys.argv) > 3:
+    if sys.argv[3] != "":
+        artist = sys.argv[3]
 
 resp_json = get_response_json(get_genius_api_path(search_term, artist))
 song_json = get_song_json(resp_json)
