@@ -83,7 +83,7 @@ function queryGeniusAPI(req, res, songName, artist) {
     }
     else {
       if(error.length > 0) {
-        return res.status(404).json(error);
+          return res.status(404).json({"error": error, "data": responseData});
       } else {
         return handleError(res, 'Unable to complete the request at this time.');
       }
@@ -102,7 +102,7 @@ exports.find = function(req, res) {
 
   Song.findOne(query)
   .exec(function(err, song) {
-    if(err) { return res.status(404).json(err); }
+      if(err) { return res.status(404).json(err); }
 
     if(song !== null) {
       return res.status(200).json(song);
