@@ -10,7 +10,7 @@ var structure = {
   'country': 'String',
   'lat': 'Number',
   'lon': 'Number',
-  'elevation': 'String',
+  'elevation': 'Number',
   'population': 'Number',
   'timezone': 'String'
 };
@@ -22,7 +22,7 @@ var WorldCitySchema = new Schema({
   country: String,
   lat: Number,
   lon: Number,
-  elevation: String,
+  elevation: Number,
   population: Number,
   timezone: String
 });
