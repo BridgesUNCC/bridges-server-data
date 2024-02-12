@@ -24,6 +24,9 @@ module.exports = function(app) {
   app.use('/api/cities', require('./api/cities'));
   app.use('/api/us_cities', require('./api/us_cities'));
   app.use('/api/world_cities', require('./api/world_cities'));
+  app.use('/api/us_counties', require('./api/counties_map'))
+  app.use('/api/us_states', require('./api/state_map'))
+  app.use('/api/us_map', require('./api/map'))
 
   app.get('*', function(req, res, next) {
     datasets.getDatasets(function(err, data){

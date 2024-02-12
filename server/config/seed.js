@@ -20,7 +20,9 @@ var seeds = {
   'crime': false,
   'cities': false,
   'us_cities': true,
-  'world_cities': false
+  'world_cities': false,
+  'us_county': true,
+  'states': true
 };
 
 // Insert seed models below
@@ -37,6 +39,8 @@ var Crime = require('../api/crime/crime.model').model;
 var Cities = require('../api/cities/cities.model').model;
 var USCities = require('../api/us_cities/us_cities.model').model;
 var WorldCities = require('../api/world_cities/world_cities.model').model;
+var USCounty = require('../api/counties_map/us_county.model').model;
+var USStates = require('../api/state_map/us_states.model').model;
 
 // // Insert seed data below
 var DatasetSeed = require('../api/dataset/dataset.seed.json');
@@ -51,6 +55,8 @@ var CrimeSeed = require('../api/crime/crimeParser.js');
 var CitiesSeed = require('../api/cities/US_cities.json');
 var USCitiesSeed = require('../api/us_cities/us_cities.json');
 var WorldCitiesSeed = require('../api/world_cities/world_cities_test.json');
+var USCountySeed = require('../api/counties_map/county.json');
+var USStatesSeed = require('../api/state_map/states.json');
 
 // Insert seed inserts below
 if(seeds.datasets) {
@@ -174,5 +180,19 @@ if(seeds.world_cities) {
   // Insert all cities data
   WorldCities.find({}).deleteMany(function() {
       WorldCities.create(WorldCitiesSeed);
+  });
+}
+
+if(seeds.us_county){
+  console.log('Seeding US Counties');
+  USCounty.find({}).deleteMany(function (){
+    USCounty.create(USCountySeed);
+  });
+}
+
+if(seeds.states){
+  console.log('Seeding US States');
+  USStates.find({}).deleteMany(function (){
+    USStates.create(USStatesSeed);
   });
 }
