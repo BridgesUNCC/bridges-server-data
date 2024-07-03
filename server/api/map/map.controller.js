@@ -35,15 +35,23 @@ function formatFinalJSON(){
 }
 
 
+
 // Get list of cities data
 exports.index = async function(req, res) {
 
   // Construct a regular expression for each state name, case-insensitive
-  const regexStateNames = req.query.state.split(',').map(state => new RegExp(state, 'i'));
+  console.log(req)
+  if(req.query.state){
+    const regexStateNames = req.query.state.split(',').map(state => new RegExp(state, 'i'));
+    var query = {
+      "properties.NAME": {$in: regexStateNames}
+    };
+  }else{
+    var query = {};
+  }
   
-  var query = {
-    "properties.NAME": {$in: regexStateNames}
-  };
+  
+  
 
   var stateInfo = await getState(query);
 

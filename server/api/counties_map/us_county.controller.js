@@ -19,11 +19,11 @@ exports.index = function(req, res) {
   
   const stateName = "California"; // Example state name
 
-// Construct a query to find features within the specified distance from the point
-const query = {
-  "geometry.type": "Polygon", // Filter based on the geometry type (only polygons)
-  "properties.GEOID": "01005" // Filter based on the state name
-};
+  // Construct a query to find features within the specified distance from the point
+  const query = {
+    "geometry.type": "Polygon", // Filter based on the geometry type (only polygons)
+    "properties.GEOID": "01005" // Filter based on the state name
+  };
   
   // Query for <limit> cities
   USCounty.find(query)
