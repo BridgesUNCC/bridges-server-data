@@ -19,10 +19,10 @@ exports.index = function(req, res) {
   
   const stateName = "California"; // Example state name
 
-  // Construct a query to find features within the specified distance from the point
-  const query = {
-    "properties.NAME": "Nebraska" // Filter based on the state name
-  };
+// Construct a query to find features within the specified distance from the point
+const query = {
+  "properties.NAME": "Nebraska" // Filter based on the state name
+};
   
   // Query for <limit> cities
   USStates.find(query)
