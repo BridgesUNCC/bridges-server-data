@@ -9,7 +9,7 @@ console.log('Seeding DB');
 
 var seeds = {
   'datasets': true,
-  'tests': true,
+  'tests': false,
   'games': false,
   'books': false,
   'song': false,
@@ -21,8 +21,9 @@ var seeds = {
   'cities': false,
   'us_cities': true,
   'world_cities': false,
-  'us_county': true,
-  'states': true
+  'us_county': false,
+    'states': false,
+    'world_map': true
 };
 
 // Insert seed models below
@@ -41,6 +42,7 @@ var USCities = require('../api/us_cities/us_cities.model').model;
 var WorldCities = require('../api/world_cities/world_cities.model').model;
 var USCounty = require('../api/counties_map/us_county.model').model;
 var USStates = require('../api/state_map/us_states.model').model;
+var WorldCountry = require('../api/world_map/world_map.model').model;
 
 // // Insert seed data below
 var DatasetSeed = require('../api/dataset/dataset.seed.json');
@@ -57,6 +59,7 @@ var USCitiesSeed = require('../api/us_cities/us_cities.json');
 var WorldCitiesSeed = require('../api/world_cities/world_cities_test.json');
 var USCountySeed = require('../api/counties_map/county.json');
 var USStatesSeed = require('../api/state_map/states.json');
+var WorldCountrySeed = require('../api/world_map/world-countries-iso-3166.json');
 
 // Insert seed inserts below
 if(seeds.datasets) {
@@ -194,5 +197,12 @@ if(seeds.states){
   console.log('Seeding US States');
   USStates.find({}).deleteMany(function (){
     USStates.create(USStatesSeed);
+  });
+}
+
+if(seeds.world_map){
+  console.log('Seeding World Map');
+  WorldCountry.find({}).deleteMany(function (){
+    WorldCountry.create(WorldCountrySeed);
   });
 }

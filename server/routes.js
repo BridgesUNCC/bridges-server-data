@@ -27,7 +27,9 @@ module.exports = function(app) {
   app.use('/api/us_counties', require('./api/counties_map'))
   app.use('/api/us_states', require('./api/state_map'))
   app.use('/api/us_map', require('./api/map'))
+  app.use('/api/world_map', require('./api/world_map'))
 
+    
   app.get('*', function(req, res, next) {
     datasets.getDatasets(function(err, data){
       req.datasets = data;
