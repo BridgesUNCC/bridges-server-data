@@ -44,3 +44,8 @@ The server should be running on http://localhost:3001/
 ### seeding datasets
 
 when you run the server like that, it appears not to seed the data in the mongo server. Change the 'seeds' variable at the top of server/config/seed.js to seed the dataset you work on.
+You probably should seed the database from the dev environment and set the seed back to false before deploying to the production database. That enables you to check that the data has been seeded correctly. And make sure that the server is not deleting data in production.
+
+Also, that upload code is kinda busted, it will seed every thing at once. Probably causing a ton of race condition. And if it timesout somehow you get partial data.
+
+So buyers beware.

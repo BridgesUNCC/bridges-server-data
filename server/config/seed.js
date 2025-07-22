@@ -7,8 +7,14 @@
 
 console.log('Seeding DB');
 
+//You should really only set these to true when you seed the dataset.
+//You should probably seed the dataset one at a time.
+//Leaving one of these flag to true in production is a race condition on the database waiting to happen.
+//Don't do it.
+//You've been warned!
+//-- Erik (Jul 21, 2025)
 var seeds = {
-  'datasets': false, //really should always be true
+  'datasets': false, 
   'tests': false,
   'games': false,
   'books': false,
@@ -20,10 +26,10 @@ var seeds = {
   'crime': false,
   'cities': false,
   'us_cities': false,
-  'world_cities': false,
+    'world_cities': false, //seeding the world cities quite some time. monitor the database to confirm that the data is there. There should be over 100,000 cities at the end. Probably over 30 minutes
   'us_county': false,
     'states': false,
-    'world_map': true
+    'world_map': false
 };
 
 // Insert seed models below
@@ -56,7 +62,7 @@ var CancerSeed = require('../api/cancer/cancer.json');
 var CrimeSeed = require('../api/crime/crimeParser.js');
 var CitiesSeed = require('../api/cities/US_cities.json');
 var USCitiesSeed = require('../api/us_cities/us_cities.json');
-var WorldCitiesSeed = require('../api/world_cities/world_cities_test.json');
+var WorldCitiesSeed = require('../api/world_cities/world_cities.json');
 var USCountySeed = require('../api/counties_map/county.json');
 var USStatesSeed = require('../api/state_map/states.json');
 var WorldCountrySeed = require('../api/world_map/world-countries-iso-3166.json');
