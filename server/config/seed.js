@@ -8,7 +8,7 @@
 console.log('Seeding DB');
 
 var seeds = {
-  'datasets': true,
+  'datasets': false, //really should always be true
   'tests': false,
   'games': false,
   'books': false,
@@ -19,11 +19,11 @@ var seeds = {
   'cancer': false,
   'crime': false,
   'cities': false,
-  'us_cities': true,
+  'us_cities': false,
   'world_cities': false,
   'us_county': false,
     'states': false,
-    'world_map': false
+    'world_map': true
 };
 
 // Insert seed models below
