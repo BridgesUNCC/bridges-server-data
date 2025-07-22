@@ -23,7 +23,7 @@ var seeds = {
   'world_cities': false,
   'us_county': false,
     'states': false,
-    'world_map': true
+    'world_map': false
 };
 
 // Insert seed models below
