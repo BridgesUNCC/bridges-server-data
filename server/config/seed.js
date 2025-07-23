@@ -67,6 +67,61 @@ var USCountySeed = require('../api/counties_map/county.json');
 var USStatesSeed = require('../api/state_map/states.json');
 var WorldCountrySeed = require('../api/world_map/world-countries-iso-3166.json');
 
+
+//The models have a .create function that you can use to upload a list of documents at cone. But that function has no recovery mecanism in cases of failure.
+//uploadDocumentsOneByOne has recovery features that should be better for very large document sets.
+async function uploadDocumentsOneByOne(Model, documents, maxRetries = 5, retryDelayMs = 1000) {
+
+  const failedDocuments = []; // To keep track of documents that ultimately failed
+
+  console.log(`Starting individual document upload for ${documents.length} documents.`);
+
+    for (let i = 0; i < documents.length; i++) {
+	if (i % 10000 == 0) {
+	    console.log("uploading doc "+String(i) +" of "+String(documents.length));
+	}
+    const docData = documents[i];
+    let attempts = 0;
+    let success = false;
+    let createdDocument = null;
+
+    // Create a new Mongoose document instance
+    // If the document data already has an _id, Mongoose will try to create/update with that _id.
+    // If not, Mongoose will generate one.
+    const docToSave = new Model(docData);
+
+    
+      
+    while (attempts < maxRetries && !success) {
+      attempts++;
+      try {
+        createdDocument = await docToSave.save(); // Attempt to save the single document
+        success = true;
+          //console.log(`  [${i + 1}/${documents.length}] Successfully uploaded document (ID: ${createdDocument._id})`);
+      } catch (error) {
+        console.error(`  [${i + 1}/${documents.length}] Error uploading document (Attempt ${attempts}/${maxRetries}):`, error.message);
+
+        if (attempts < maxRetries) {
+          console.log(`  Retrying document (ID: ${docToSave._id || 'new'}) in ${retryDelayMs}ms...`);
+          await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+        } else {
+          console.error(`  Failed to upload document (ID: ${docToSave._id || 'new'}) after ${maxRetries} attempts. Skipping.`);
+          failedDocuments.push(docData); // Store the original data of the failed document
+        }
+      }
+    }
+  }
+
+  console.log("Individual document upload process completed.");
+  if (failedDocuments.length > 0) {
+    console.error(`Total documents that failed to upload: ${failedDocuments.length}`);
+    // You might want to return or log the actual data of the failed documents for review
+    return failedDocuments;
+  }
+  return []; // Return empty array if all succeeded
+}
+
+
 // Insert seed inserts below
 if(seeds.datasets) {
   console.log('Seeding datasets');
@@ -172,7 +227,7 @@ if(seeds.cities) {
   console.log('Seeding cities');
   // Insert all cities data
   Cities.find({}).deleteMany(function() {
-      Cities.create(CitiesSeed);
+      uploadDocumentsOneByOne(Cities, CitiesSeed);
   });
 }
 
@@ -180,35 +235,38 @@ if(seeds.us_cities) {
   console.log('Seeding us_cities');
   // Insert all cities data
   USCities.find({}).deleteMany(function() {
-      USCities.create(USCitiesSeed);
+      uploadDocumentsOneByOne(USCities, USCitiesSeed);
   });
 }
+
+
 
 if(seeds.world_cities) {
   console.log('Seeding world_cities');
   // Insert all cities data
-  WorldCities.find({}).deleteMany(function() {
-      WorldCities.create(WorldCitiesSeed);
+    WorldCities.find({}).deleteMany(function() {
+	uploadDocumentsOneByOne(WorldCities, WorldCitiesSeed);
   });
 }
+
 
 if(seeds.us_county){
   console.log('Seeding US Counties');
   USCounty.find({}).deleteMany(function (){
-    USCounty.create(USCountySeed);
+      uploadDocumentsOneByOne(USCounty, USCountySeed);
   });
 }
 
 if(seeds.states){
   console.log('Seeding US States');
   USStates.find({}).deleteMany(function (){
-    USStates.create(USStatesSeed);
+      uploadDocumentsOneByOne(USStates,USStatesSeed);
   });
 }
 
 if(seeds.world_map){
   console.log('Seeding World Map');
   WorldCountry.find({}).deleteMany(function (){
-    WorldCountry.create(WorldCountrySeed);
+      uploadDocumentsOneByOne(WorldCountry, WorldCountrySeed);
   });
 }
